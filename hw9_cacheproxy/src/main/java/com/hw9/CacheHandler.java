@@ -12,16 +12,21 @@ public class CacheHandler implements InvocationHandler {
 
     private Object delegate;
     private CacheMemory cacheMemory;
-
+    private String root_folder="";
 
     public CacheHandler(Object delegate) {
         this.delegate = delegate;
         this.cacheMemory = new CacheMemory();
     }
 
+    public CacheHandler(Object delegate, String root_folder) {
+        this.delegate = delegate;
+        this.root_folder = root_folder;
+        this.cacheMemory = new CacheMemory();
+    }
 
-    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
+
         if (method.isAnnotationPresent(Cache.class)) {
             Cache an = method.getAnnotation(Cache.class);
             String prefix = "";
@@ -33,7 +38,10 @@ public class CacheHandler implements InvocationHandler {
 
             if (an.cacheType() == FileMemory.FILE) {
 
-                String file_name = prefix;
+                String file_name = "";
+                if (root_folder.length()>0)
+                file_name = root_folder+"\\"+prefix;
+                else file_name = prefix;
 
                 File file = new File(file_name);
                 MethodCache mc = null;
@@ -50,7 +58,7 @@ public class CacheHandler implements InvocationHandler {
                 Object result = findMatchObject(mc,an,args);
                 if(result!=null)
                     return result;
-                List<Object> new_list_obj = new ArrayList<>();
+                List<Object> new_list_obj = new ArrayList<Object>();
                 for (Object o : args
                         ) {
                     if (checkContains(o.getClass(),an.identityBy()))
@@ -78,7 +86,7 @@ public class CacheHandler implements InvocationHandler {
                         return result;
 
                 }
-                List<Object> new_list_obj = new ArrayList<>();
+                List<Object> new_list_obj = new ArrayList<Object>();
                 for (Object o : args
                         ) {
                     if (checkContains(o.getClass(),an.identityBy()))
