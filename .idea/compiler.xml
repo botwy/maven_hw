@@ -10,7 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hw9_cacheproxy" target="1.5" />
+      <module name="hw9_cacheproxy" target="1.7" />
+      <module name="maven_hw" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

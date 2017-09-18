@@ -25,7 +25,7 @@ public class CacheHandler implements InvocationHandler {
         this.cacheMemory = new CacheMemory();
     }
 
-    public Object invoke(Object proxy, Method method, Object[] args) throws IOException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
+    public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
 
         if (method.isAnnotationPresent(Cache.class)) {
             Cache an = method.getAnnotation(Cache.class);
@@ -39,19 +39,20 @@ public class CacheHandler implements InvocationHandler {
             if (an.cacheType() == FileMemory.FILE) {
 
                 String file_name = "";
-                if (root_folder.length()>0)
-                file_name = root_folder+"\\"+prefix;
+                if (root_folder.length()>0) {
+                    File folder = new File(root_folder);
+                    if (!folder.exists())
+                        folder.mkdir();
+
+                    file_name = root_folder + "/" + prefix;
+                }
                 else file_name = prefix;
 
                 File file = new File(file_name);
                 MethodCache mc = null;
-                if (file.exists()) {
-                    FileInputStream fis = new FileInputStream(file_name);
-                    ObjectInputStream in = new ObjectInputStream(fis);
-                    mc = (MethodCache) in.readObject();
-                    fis.close();
-                    in.close();
-                }
+                if (file.exists())
+                    mc=readMcFromFile(file_name);
+
                 if (mc == null)
                     mc = new MethodCache();
 
@@ -61,18 +62,14 @@ public class CacheHandler implements InvocationHandler {
                 List<Object> new_list_obj = new ArrayList<Object>();
                 for (Object o : args
                         ) {
-                    if (checkContains(o.getClass(),an.identityBy()))
+
                     new_list_obj.add(o);
                 }
                 result = method.invoke(delegate, args);
                 new_list_obj.add(result);
                 mc.addRow(new_list_obj);
                 //  mc.setList_list_object(list_list_obj);
-                FileOutputStream fos = new FileOutputStream(file_name);
-                ObjectOutputStream out = new ObjectOutputStream(fos);
-                out.writeObject(mc);
-                fos.close();
-                out.close();
+               writeMcToFile(file_name,mc);
 
                 return result;
             }else
@@ -89,7 +86,6 @@ public class CacheHandler implements InvocationHandler {
                 List<Object> new_list_obj = new ArrayList<Object>();
                 for (Object o : args
                         ) {
-                    if (checkContains(o.getClass(),an.identityBy()))
                     new_list_obj.add(o);
                 }
                 result = method.invoke(delegate, args);
@@ -115,11 +111,14 @@ public class CacheHandler implements InvocationHandler {
     }
 
     Object getCacheArgByClassName(Class cl, List<Object> list_obj) {
-        for (Object obj : list_obj
-                ) {
-            if (obj.getClass().equals(cl))
-                return obj;
-        }
+       Object obj;
+            for (int i = 0; i <list_obj.size()-1 ; i++) {
+                obj = list_obj.get(i);
+                if (obj.getClass().equals(cl))
+                    return obj;
+            }
+
+
         return null;
     }
 
@@ -129,7 +128,7 @@ public class CacheHandler implements InvocationHandler {
                 ) {
             boolean match_result = true;
             for (int i = 0; i < args.length; i++) {
-                if (an.identityBy().length == 0) {
+                if (an.identityBy().length != 0) {
                     if (checkContains(args[i].getClass(), an.identityBy())) {
                         Object o = getCacheArgByClassName(args[i].getClass(), list_obj);
                         if (o == null || !o.equals(args[i]))
@@ -144,5 +143,38 @@ public class CacheHandler implements InvocationHandler {
 
         }
         return null;
+    }
+
+    MethodCache readMcFromFile(String file_name){
+        MethodCache mc=null;
+
+        try(FileInputStream fis = new FileInputStream(file_name);
+        ObjectInputStream in = new ObjectInputStream(fis)
+                ) {
+            mc = (MethodCache) in.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return mc;
+    }
+
+    void writeMcToFile(String file_name, MethodCache mc) {
+        try (FileOutputStream fos = new FileOutputStream(file_name);
+        ObjectOutputStream out = new ObjectOutputStream(fos);
+                ){
+            out.writeObject(mc);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

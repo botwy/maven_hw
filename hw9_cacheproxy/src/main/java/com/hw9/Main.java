@@ -17,14 +17,11 @@ public class Main {
 
 
         double r1=0;
-try {
-    r1 = service.doHardWork("work1",3);
-}
-catch (Exception e){
-e.printStackTrace();
-}
 
+        r1 = service.doHardWork("work1",3);
+        System.out.println(r1);
+        r1 = service.doHardWork("work1",2);
+        System.out.println(r1);
 
-      System.out.println(r1);
     }
 }

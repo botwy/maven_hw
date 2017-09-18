@@ -9,6 +9,6 @@ import static com.hw9.FileMemory.IN_MEMORY;
 
 public interface IService {
 
-    @Cache(cacheType = FILE,identityBy = {String.class, Integer.class})
+    @Cache(cacheType = FILE,identityBy = {String.class,Integer.class})
     double doHardWork(String action, Integer arg2);
 }
