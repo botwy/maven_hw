@@ -23,4 +23,8 @@ private String root_folder="";
         );
         return cache_service;
     }
+
+    public String getRoot_folder() {
+        return root_folder;
+    }
 }
