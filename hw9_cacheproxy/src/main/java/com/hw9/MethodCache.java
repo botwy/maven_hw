@@ -10,7 +10,8 @@ public class MethodCache implements Serializable{
     private static final long serialVersionUID = 1L;
 
     public MethodCache(){
-        this.list_list_object = new ArrayList<>();
+
+        this.list_list_object = new ArrayList<List<Object>>();
     }
 
     public void addRow(List<Object> list_obj) {
