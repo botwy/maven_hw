@@ -1,8 +1,8 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class MyStream<T> {
@@ -31,6 +31,27 @@ public class MyStream<T> {
       collection = new_collection;
       return this;
   }
+
+  public MyStream<T> transform(Function<? super T, ? extends T> function) {
+      Collection<T> new_collection = new ArrayList<>();
+      for (T item:collection
+           ) {
+          new_collection.add( function.apply(item));
+      }
+      collection = new_collection;
+      return this;
+  }
+
+    public<K,V> Map<K, V> toMap
+            (Function<? super T,? extends K> consumerKey, Function<? super T, ? extends V> consumerValue) {
+       Map<K,V> new_map = new HashMap<K,V>();
+        for (T item:collection
+                ) {
+            new_map.put(consumerKey.apply(item),consumerValue.apply(item));
+        }
+
+        return new_map;
+    }
 
 
 }
