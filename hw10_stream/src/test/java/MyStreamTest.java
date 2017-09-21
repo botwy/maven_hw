@@ -46,6 +46,7 @@ public class MyStreamTest {
          System.out.println(item.getKey()+" "+item.getValue());
          Assert.assertTrue("Возраст персон в мапе должен быть больше 50 лет"
                  ,item.getValue().getAge()>50);
+
         }
     }
 }
