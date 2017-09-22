@@ -21,6 +21,7 @@ public class SolutionTest {
                 ;
         Random r = new Random();
 
+
         for (int i = 0; i < 50000; i++) {
             int r_int = r.nextInt(100)+1;
             if (r_int>50)
