@@ -6,10 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="maven_hw" />
+        <module name="hw10_stream" />
+        <module name="hw9_cacheproxy" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="hw10_stream" target="1.5" />
+      <module name="hw9_cacheproxy" target="1.5" />
       <module name="maven_hw" target="1.5" />
     </bytecodeTargetLevel>
   </component>
