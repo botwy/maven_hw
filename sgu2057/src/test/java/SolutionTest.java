@@ -8,7 +8,7 @@ public class SolutionTest {
 
     @Test
     public void Test1() {
-        String text = "50008\n"
+        String text = "50009\n"
                 +"1 1\n"
                 +"1 1\n"
                 +"1 1\n"
@@ -29,7 +29,7 @@ public class SolutionTest {
             else
             text +="\n1 "+Integer.toString(r_int);
         }
-SolutionQue.main(new String[]{text});
+SolutionArr.main(new String[]{text});
      //  System.out.println("1");
        // System.out.println("1 3");
     }
