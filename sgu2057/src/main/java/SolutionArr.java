@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class SolutionArr {
     public static void main(String[] args) {
+        Long startTime = System.nanoTime();
         String text = args[0];
         Scanner scanner = new Scanner(text);
         int count = Integer.parseInt(scanner.nextLine());
@@ -21,8 +22,11 @@ public class SolutionArr {
             } else if (Integer.parseInt(arr[0]) == 2) {
                 int min = 0;
                 for (int j = 0; j <= i; j++) {
-                    if (arr_int[min]==0 && arr_int[j]!=0)
-                    min=j;
+
+
+                      if (arr_int[min]==0 && arr_int[j]!=0)
+                          min=j;
+
                     if (arr_int[j] != 0 && arr_int[j] < arr_int[min])
                         min = j;
                 }
@@ -36,5 +40,8 @@ public class SolutionArr {
                 ) {
             System.out.println(result);
         }
+
+        Long time_interval = System.nanoTime()-startTime;
+    //    System.out.println(time_interval/1_000_000+" mls");
     }
 }

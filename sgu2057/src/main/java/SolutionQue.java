@@ -2,6 +2,7 @@ import java.util.*;
 
 public class SolutionQue {
     public static void main(String[] args) {
+        Long startTime = System.nanoTime();
         String text = args[0];
         Scanner scanner = new Scanner(text);
         int count = Integer.parseInt(scanner.nextLine());
@@ -30,6 +31,9 @@ public class SolutionQue {
                 ) {
             System.out.println(result);
         }
+
+        Long time_interval = System.nanoTime()-startTime;
+        System.out.println(time_interval/1_000_000+" mls");
 
     }
 

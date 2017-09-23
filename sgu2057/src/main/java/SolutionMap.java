@@ -1,7 +1,8 @@
 import java.util.*;
 
-public class Solution {
+public class SolutionMap {
     public static void main(String[] args) {
+        Long startTime = System.nanoTime();
         String text = args[0];
         Scanner scanner = new Scanner(text);
         int count = Integer.parseInt(scanner.nextLine());
@@ -38,6 +39,9 @@ public class Solution {
                 ) {
             System.out.println(result);
         }
+
+        Long time_interval = System.nanoTime()-startTime;
+        System.out.println(time_interval/1_000_000+" mls");
 
     }
 
