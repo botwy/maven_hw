@@ -2,38 +2,24 @@ import java.util.*;
 
 public class SolutionQue {
     public static void main(String[] args) {
-        Long startTime = System.nanoTime();
-        String text = args[0];
-        Scanner scanner = new Scanner(text);
-        int count = Integer.parseInt(scanner.nextLine());
 
+        Scanner scanner = new Scanner(System.in);
+        int count = Integer.parseInt(scanner.nextLine());
         PriorityQueue<Integer> que = new PriorityQueue<>();
         List<Integer> result_list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             String[] arr = scanner.nextLine().split("[\\s]+");
-
-            if (Integer.parseInt(arr[0]) == 1) {
-                int number = Integer.parseInt(arr[1]);
-
-                que.add(number);
-            } else if (Integer.parseInt(arr[0]) == 2) {
-
-
-                if (que.size() > 0) {
+            if (Integer.parseInt(arr[0]) == 1)
+                que.add(Integer.parseInt(arr[1]));
+            else
+                if (que.size() > 0)
                     result_list.add(que.poll());
 
-                }
-
-            }
         }
 
-        for (Integer result : result_list
-                ) {
+        for (Integer result : result_list)
             System.out.println(result);
-        }
 
-        Long time_interval = System.nanoTime()-startTime;
-        System.out.println(time_interval/1_000_000+" mls");
 
     }
 

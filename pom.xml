@@ -26,5 +26,7 @@
         <module>hw9_cacheproxy</module>
         <module>hw10_stream</module>
         <module>sgu2057</module>
+        <module>sgu2056</module>
+        <module>sgu2059</module>
     </modules>
 </project>
