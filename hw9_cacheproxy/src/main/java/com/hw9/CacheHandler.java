@@ -122,6 +122,7 @@ public class CacheHandler implements InvocationHandler {
         return null;
     }
 
+    //Поиск в объекте MethodCache в списке имеющихся значение равное аргументам в метод invoke
     Object findMatchObject(MethodCache mc, Cache an, Object[] args) {
         List<List<Object>> list_list_obj = mc.getList_object();
         for (List<Object> list_obj : list_list_obj
@@ -145,6 +146,7 @@ public class CacheHandler implements InvocationHandler {
         return null;
     }
 
+    //Сериализация. Чтения из файла
     MethodCache readMcFromFile(String file_name){
         MethodCache mc=null;
 
@@ -164,6 +166,7 @@ public class CacheHandler implements InvocationHandler {
         return mc;
     }
 
+   // Сериализация. Запись в файл.
     void writeMcToFile(String file_name, MethodCache mc) {
         try (FileOutputStream fos = new FileOutputStream(file_name);
         ObjectOutputStream out = new ObjectOutputStream(fos);
