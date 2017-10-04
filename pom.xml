@@ -29,5 +29,6 @@
         <module>sgu2056</module>
         <module>sgu2059</module>
         <module>hw11_12_thread</module>
+        <module>hw13_jmm</module>
     </modules>
 </project>
