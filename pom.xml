@@ -30,5 +30,6 @@
         <module>sgu2059</module>
         <module>hw11_12_thread</module>
         <module>hw13_jmm</module>
+        <module>hw16_JIT_GC</module>
     </modules>
 </project>
