@@ -2,12 +2,16 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadPoolImpl implements ThreadPool{
+//пул потоков, в который передаем объект ContextImpl
+public class ThreadPoolImpl implements ThreadPool {
 
     private final int num_threads;
     private final MyThread[] threads;
     private Queue<Runnable> que;
     private volatile ContextImpl contextImpl;
+
+    private final Object monitor = new Object();
+    private volatile boolean flag_finish = false;
 
     public ThreadPoolImpl(int num_threads) {
         this.num_threads = num_threads;
@@ -18,16 +22,17 @@ public class ThreadPoolImpl implements ThreadPool{
     @Override
     public void start() {
 
-        for (int i = 0; i <threads.length ; i++) {
+        for (int i = 0; i < threads.length; i++) {
             threads[i] = new MyThread();
             threads[i].start();
         }
 
     }
 
+    //выполнение задач инкапсулированных в объект ContextImpl (передача потокам)
     @Override
-    public void executeContext (Context context) {
-        this.contextImpl=(ContextImpl)context;
+    public void executeContext(Context context) {
+        this.contextImpl = (ContextImpl) context;
         que = contextImpl.getQue();
         synchronized (que) {
             que.notify();
@@ -36,11 +41,20 @@ public class ThreadPoolImpl implements ThreadPool{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!contextImpl.isFinished());
-
+                //  while (!contextImpl.isFinished());
+                synchronized (monitor) {
+                    while (!flag_finish) {
+                        try {
+                            monitor.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
                 contextImpl.getCallback().run();
             }
-        });
+        }).start();
+
     }
 
     public class MyThread extends Thread {
@@ -49,8 +63,6 @@ public class ThreadPoolImpl implements ThreadPool{
             Runnable runnable;
 
             while (true) {
-                if (contextImpl.isFinished())
-                    que.add(contextImpl.getCallback());
 
                 synchronized (que) {
                     while (que.isEmpty()) {
@@ -76,6 +88,13 @@ public class ThreadPoolImpl implements ThreadPool{
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+
+                if (contextImpl.isFinished()) {
+                    synchronized (monitor) {
+                        flag_finish = true;
+                        monitor.notify();
+                    }
                 }
             }
         }

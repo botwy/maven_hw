@@ -7,7 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ExecutionManagerImpl implements ExecutionManager {
 
-
+//это неблокирующий метод, который сразу возвращает объект Context, в который инкапсулированы tasks, callback. Context это интерфейс.
+//задачи выполнять будет пул потоков, в который передаем объект Context
     @Override
     public Context execute(Runnable callback, Runnable... tasks) {
        Context context = new ContextImpl(callback,tasks);

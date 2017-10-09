@@ -3,9 +3,9 @@ import java.util.Arrays;
 import java.util.Queue;
 
 public class ContextImpl implements Context {
-   public int completeTask;
-   public int failedTask;
-   public int interruptedTask;
+   public volatile int completeTask;
+   public volatile int failedTask;
+   public volatile int interruptedTask;
 
     private final Runnable callback;
     private final Queue<Runnable> que;
@@ -53,8 +53,6 @@ public class ContextImpl implements Context {
     @Override
     public boolean isFinished() {
         synchronized (que) {
-            System.out.println(getCompletedTaskCount());
-            System.out.println(getInterruptedTaskCount());
            if(que.size()==0 && count==completeTask+interruptedTask) return true;
            else return false;
         }

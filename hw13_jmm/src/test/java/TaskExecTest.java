@@ -29,10 +29,11 @@ public class TaskExecTest {
         }
 
         try {
-            TimeUnit.SECONDS.sleep(11);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 
     @Test
@@ -56,10 +57,13 @@ public class TaskExecTest {
         }, arr_run);
 
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(2);
             context.interrupt();
-            System.out.println(context.getCompletedTaskCount());
-            TimeUnit.SECONDS.sleep(3);
+
+            TimeUnit.SECONDS.sleep(5);
+            System.out.println("CompletedTaskCount  "+context.getCompletedTaskCount());
+            System.out.println("isFinished  "+context.isFinished());
+            System.out.println("InterruptedTaskCount  "+context.getInterruptedTaskCount());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

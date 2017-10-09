@@ -6,8 +6,8 @@ public class Task<T> {
     private final Callable<? extends T> callable;
 
     private volatile T result;
-    private volatile boolean isCall = false;
-    private final Object lock = new Object();
+    private static boolean mustWait = false;
+    private static final Object monitor = new Object();
 
     public Task(Callable<? extends T> callable) {
         this.callable = callable;
@@ -17,30 +17,33 @@ public class Task<T> {
 
     public T get() {
         if (result == null) {
-            synchronized (lock) {
-                while (isCall) {
-                    System.out.println(isCall);
+
+            synchronized (monitor) {
+                while (mustWait) {
+               //     System.out.println(isCall);
                     try {
-                        lock.wait();
+                        monitor.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-
+             mustWait=true;
             }
+
             synchronized (callable) {
                 if (result == null)
                     try {
-
-                        isCall = true;
-                        TimeUnit.SECONDS.sleep(5);
                         result = callable.call();
-                        TimeUnit.SECONDS.sleep(5);
-                        isCall = false;
-                        callable.notify();
                     } catch (Exception e) {
                         throw new GetResultException(e);
                     }
+            }
+
+            if (mustWait) {
+                synchronized (monitor) {
+                   mustWait=false;
+                   monitor.notify();
+                }
             }
         }
         return result;
