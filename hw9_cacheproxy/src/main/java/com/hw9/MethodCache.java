@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Deprecated
 public class MethodCache implements Serializable{
     private List<List<Object>> list_list_object;
     private static final long serialVersionUID = 1L;

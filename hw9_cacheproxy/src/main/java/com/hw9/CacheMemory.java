@@ -3,23 +3,23 @@ package com.hw9;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class CacheMemory implements Serializable{
-    private HashMap<String,MethodCache> data;
+public class CacheMemory{
+    private HashMap<String,FileCache> data;
 
     public CacheMemory(){
-        this.data = new HashMap<String, MethodCache>();
+        this.data = new HashMap<String, FileCache>();
     }
 
-    public boolean addRow(String method_name, MethodCache methodCache) {
-        data.put(method_name,methodCache);
+    public boolean addCacheOfMethod(String method_name, FileCache fCache) {
+        data.put(method_name,fCache);
         return true;
     }
 
-    public HashMap<String, MethodCache> getData() {
+    public HashMap<String, FileCache> getData() {
         return data;
     }
 
-    public void setData(HashMap<String, MethodCache> data) {
+    public void setData(HashMap<String, FileCache> data) {
         this.data = data;
     }
 }

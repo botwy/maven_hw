@@ -2,6 +2,7 @@ package com.hw9;
 
 import java.lang.reflect.Proxy;
 
+@Deprecated
 public class Main {
 
     public static void main(String[] args) {
