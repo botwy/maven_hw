@@ -10,9 +10,6 @@ public class ServerMain {
 
     private static final DataBase dataBase=new DataBase();
 
-    /*public ServerMain() {
-        dataBase = new DataBase();
-    }*/
 
     public static void main(String... args) {
 

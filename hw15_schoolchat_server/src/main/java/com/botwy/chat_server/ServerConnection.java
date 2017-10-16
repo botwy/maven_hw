@@ -30,8 +30,7 @@ public class ServerConnection implements Runnable {
                         dataBase.addUser(message_in.getUser_name(), client, oos);
                       message_out = new Message(Message.Command.LOGIN,"    - system", message_in.getUser_name()+" enter to chat");
                         System.out.println("system" + ">>" + message_in.getUser_name()+" enter to chat");
-                       for (ObjectOutputStream curr_oos : dataBase.getUser_oos().values()
-                                ) {
+                       for (ObjectOutputStream curr_oos : dataBase.getUser_oos().values()) {
                             curr_oos.writeObject(message_out);
                             curr_oos.flush();
                         }

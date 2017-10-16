@@ -3,13 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SchoolChatAPI/SchoolChatAPI.iml" filepath="$PROJECT_DIR$/SchoolChatAPI/SchoolChatAPI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SchoolChatAPI/SchoolChatAPI.iml" filepath="$PROJECT_DIR$/SchoolChatAPI/SchoolChatAPI.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw10_stream/hw10_stream.iml" filepath="$PROJECT_DIR$/hw10_stream/hw10_stream.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw11_12_thread/hw11_12_thread.iml" filepath="$PROJECT_DIR$/hw11_12_thread/hw11_12_thread.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw13_jmm/hw13_jmm.iml" filepath="$PROJECT_DIR$/hw13_jmm/hw13_jmm.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw15_schoolchat_client/hw15_schoolchat_client.iml" filepath="$PROJECT_DIR$/hw15_schoolchat_client/hw15_schoolchat_client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hw15_schoolchat_client/hw15_schoolchat_client.iml" filepath="$PROJECT_DIR$/hw15_schoolchat_client/hw15_schoolchat_client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hw15_schoolchat_server/hw15_schoolchat_server.iml" filepath="$PROJECT_DIR$/hw15_schoolchat_server/hw15_schoolchat_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw15_schoolchat_server/hw15_schoolchat_server.iml" filepath="$PROJECT_DIR$/hw15_schoolchat_server/hw15_schoolchat_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw16_JIT_GC/hw16_JIT_GC.iml" filepath="$PROJECT_DIR$/hw16_JIT_GC/hw16_JIT_GC.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw9_cacheproxy/hw9_cacheproxy.iml" filepath="$PROJECT_DIR$/hw9_cacheproxy/hw9_cacheproxy.iml" />
