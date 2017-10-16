@@ -31,5 +31,8 @@
         <module>hw11_12_thread</module>
         <module>hw13_jmm</module>
         <module>hw16_JIT_GC</module>
+        <module>hw15_schoolchat</module>
+        <module>SchoolChatAPI</module>
+        <module>hw15_schoolchat_client</module>
     </modules>
 </project>
