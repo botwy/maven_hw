@@ -1,13 +1,10 @@
+package com.salaryreport;
+
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.HashMap;
 
 //Refactor
@@ -16,28 +13,23 @@ public class ReportUtil {
 
 
     public void generateAndSendHtmlSalaryReport(ParametersByDepartment params, String recipients) {
-       StringBuilder html = generateHtmlSalaryReport(params);
-
-       String subject = "Monthly department salary report";
-       sendReportByEmail(html,recipients,subject);
 
 
     }
 
-    public static StringBuilder generateHtmlSalaryReport(ParametersByDepartment params) {
-        HashMap<String,Double> nameSalaryMap = DBUtil.getNameSalaryReport(params);
+    public static StringBuilder generateHtmlStringDoubleReport(String title, HashMap<String,Double> stringDoubleMap) {
         // create a StringBuilder holding a resulting html
         StringBuilder resultingHtml = new StringBuilder();
-        resultingHtml.append("<html><body><table><tr><td>Employee</td><td>Salary</td></tr>");
+        resultingHtml.append("<html><body><table><tr><td>").append(title).append("</td><td>Salary</td></tr>");
         double totals = 0;
-        for (String name:nameSalaryMap.keySet()) {
+        for (String str:stringDoubleMap.keySet()) {
             // process each row of query results
-            Double salary = nameSalaryMap.get(name);
+            Double dbl = stringDoubleMap.get(str);
             resultingHtml.append("<tr>"); // add row start tag
-            resultingHtml.append("<td>").append(name).append("</td>"); // appending employee name
-            resultingHtml.append("<td>").append(salary).append("</td>"); // appending employee salary for period
+            resultingHtml.append("<td>").append(str).append("</td>"); // appending str
+            resultingHtml.append("<td>").append(dbl).append("</td>"); // appending dbl for period
             resultingHtml.append("</tr>"); // add row end tag
-            totals += salary; // add salary to totals
+            totals += dbl; // add dbl to totals
         }
         resultingHtml.append("<tr><td>Total</td><td>").append(totals).append("</td></tr>");
         resultingHtml.append("</table></body></html>");
