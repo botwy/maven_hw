@@ -34,5 +34,6 @@
         <module>hw15_schoolchat</module>
         <module>SchoolChatAPI</module>
         <module>hw15_schoolchat_client</module>
+        <module>hw17_goodcode</module>
     </modules>
 </project>
