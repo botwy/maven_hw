@@ -8,13 +8,13 @@ import java.util.concurrent.Executors;
 
 public class ServerMain {
 
-    private final DataBase dataBase;
+    private static final DataBase dataBase=new DataBase();
 
-    public ServerMain() {
+    /*public ServerMain() {
         dataBase = new DataBase();
-    }
+    }*/
 
-    public void start() {
+    public static void main(String... args) {
 
         ExecutorService executor = Executors.newCachedThreadPool();
         try (ServerSocket socketListener = new ServerSocket(3000)) {
