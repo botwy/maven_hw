@@ -1,10 +1,10 @@
 package com.salaryreport;
 
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
+//import org.springframework.mail.javamail.MimeMessageHelper;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.MessagingException;
+//import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 
 //Refactor
@@ -38,7 +38,7 @@ public class ReportUtil {
     }
 
     public static void sendReportByEmail(StringBuilder resultingHtml, String recipients, String subject) {
-        try {
+       /* try {
             // now when the report is built we need to send it to the recipients list
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
             // we're going to use google mail to send this message
@@ -55,6 +55,6 @@ public class ReportUtil {
 
         } catch (MessagingException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

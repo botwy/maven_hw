@@ -6,14 +6,17 @@ public class Tractor {
     int[] field = new int[] { 5, 5 };
     Orientation orientation = Orientation.NORTH;
 
+    @Deprecated
     public void move(String command) {
-        if (command == "F") {
+        if (command == "F")
             moveForwards();
-        } else if (command == "T") {
+
+        if (command == "T")
             turnClockwise();
-        }
+
     }
 
+@Deprecated
     public void moveForwards() {
         if (orientation == Orientation.NORTH) {
             position = new int[] { position[0], position[1] + 1 };
@@ -28,7 +31,7 @@ public class Tractor {
             throw new TractorInDitchException();
         }
     }
-
+@Deprecated
     public void turnClockwise() {
         if (orientation == Orientation.NORTH) {
             orientation = Orientation.EAST;
@@ -39,6 +42,28 @@ public class Tractor {
         } else if (orientation == Orientation.WEST) {
             orientation = Orientation.NORTH;
         }
+    }
+
+    public void moveNew(String command) {
+        if (command == "F")
+            moveForwardsNew();
+
+        if (command == "T")
+            turnClockwiseNew();
+
+    }
+
+    public void moveForwardsNew() {
+       Integer[] moveVector = orientation.getVectorForward();
+       position=new int[] {position[0]+moveVector[0],position[1]+moveVector[1]};
+
+        if (position[0] > field[0] || position[1] > field[1]) {
+            throw new TractorInDitchException();
+        }
+    }
+
+    public void turnClockwiseNew() {
+       orientation = orientation.turnClockWise();
     }
 
     public int getPositionX() {
