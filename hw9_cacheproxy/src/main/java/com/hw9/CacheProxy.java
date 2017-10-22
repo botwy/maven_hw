@@ -3,7 +3,7 @@ package com.hw9;
 
 import java.lang.reflect.Proxy;
 
-public class CacheProxy {
+public class CacheProxy<T> {
 private String root_folder="";
 
     public CacheProxy() {
