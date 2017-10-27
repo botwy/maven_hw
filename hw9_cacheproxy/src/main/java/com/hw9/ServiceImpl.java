@@ -1,7 +1,7 @@
 package com.hw9;
 
 
-
+// реализация сервиса со сложным вычислением
 public class ServiceImpl implements IService{
 
 

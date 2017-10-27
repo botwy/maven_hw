@@ -28,7 +28,7 @@
       <module name="hw15_schoolchat_server" target="1.7" />
       <module name="hw16_JIT_GC" target="1.7" />
       <module name="hw17_goodcode" target="1.5" />
-      <module name="hw9_cacheproxy" target="1.7" />
+      <module name="hw9_cacheproxy" target="1.8" />
       <module name="maven_hw" target="1.7" />
       <module name="SchoolChatAPI" target="1.7" />
       <module name="sgu2056" target="1.7" />

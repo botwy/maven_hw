@@ -9,6 +9,11 @@ public class ElementKey implements Serializable{
     private final List<Object> multiple_key;
     private static final long serialVersionUID = 1L;
 
+    /**
+     * создание составного ключа с параметрами:
+     * @param method имя метода или префикс, включается в состаной ключ
+     * @param keys список учитываемых для уникальности аргументов
+     */
     public ElementKey(String method, List<Object> keys) {
         this.multiple_key = new ArrayList<Object>();
         multiple_key.add(method);

@@ -11,17 +11,17 @@ public class Main {
                 new Class[]{IService.class},
                 new CacheHandler(new ServiceImpl())
         );*/
-
+        IService service = new ServiceImpl();
         CacheProxy cacheProxy = new CacheProxy("cache_files");
-        IService service = cacheProxy.cache(new ServiceImpl());
+        IService serviceCache = cacheProxy.cache(service);
 
 
 
         double r1=0;
 
-        r1 = service.doHardWork("work1",3);
+        r1 = serviceCache.doHardWork("work1",3);
         System.out.println(r1);
-        r1 = service.doHardWork("work1",2);
+        r1 = serviceCache.doHardWork("work1",2);
         System.out.println(r1);
 
     }

@@ -12,6 +12,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+//обработчик метода для прокси
 public class CacheHandler implements InvocationHandler {
 
     private final Object delegate;
@@ -22,12 +23,36 @@ public class CacheHandler implements InvocationHandler {
     private final Lock r = readWriteLock.readLock();
     private final Lock w = readWriteLock.writeLock();
 
+   /**
+    * @param delegate в конструктор передаем Объект, реализующий интерфейс (кешируемый сервис), за которым будем следить,
+    * @param root_folder и рутовую папку, где хранится файл, в который сериализуется кеш, в случаи режима кеширования FILE
+    */
     public CacheHandler(Object delegate, String root_folder) {
         this.delegate = delegate;
         this.root_folder = root_folder;
         this.cacheMemory = new CacheMemory();
     }
 
+    /**
+     *Сначала проверяем есть ли аннотация @Cache на методе нашего сервиса
+     * Если нет, выполняем метод сервиса без кеширования
+     * Если есть, используем кеширование
+     * Если режим FILE, то кеширование осуществляем через сериализацию в/из файла на диске
+     * Если режим IN_MEMORY, то кеширование пишем в оперативную память
+     * При кешировании в обоих режимах используем объект FileCache, содержащий составной ключ из аргументов, учитываемых
+     * при определении уникальности результата и сам результат кешируемого метода
+     * В режиме FILE этот объект FileCache читается из файла с именем, соответствующем имени кещируемого метода (или fileNamePrefix аннотации @Cache
+     * кешируемого метода)
+     * В режиме IN_MEMORY объекты FileCache хранятся в объекте CacheMemory в соответствии с именами кешируемых методов
+     * (или в соответсвии с fileNamePrefix аннотации @Cache)
+     * @param proxy
+     * @param method
+     * @param args
+     * @return результат выполнения метода сервиса
+     * @throws InvocationTargetException в случае, если произойдет исключение внутри invoke метода  объекта-делегата нашего сервиса
+     * @throws IllegalAccessException в случае при исполнении invoke метода объекта-делегата нашего сервиса,
+     * этот метод будет не доступен (not access)
+     */
     public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
 
         if (method.isAnnotationPresent(Cache.class)) {
@@ -110,7 +135,12 @@ public class CacheHandler implements InvocationHandler {
         return method.invoke(delegate, args);
     }
 
-
+    /**
+     *
+     * @param cl
+     * @param arr_cl
+     * @return возвращает true, если тип cl входит в массив arr_cl
+     */
     boolean checkContains(Class cl, Class[] arr_cl) {
         for (Class item : arr_cl
                 ) {
@@ -120,7 +150,12 @@ public class CacheHandler implements InvocationHandler {
         return false;
     }
 
-
+    /**
+     *
+     * @param file_name в котором хранятся закешированные данные
+     * @return читает из файла, десериализует и возвращает объект FileCache, хранящий
+     * десериализованные данные кеша
+     */
     FileCache readFcFromFile(String file_name) {
         FileCache fileCache = null;
 
@@ -141,6 +176,12 @@ public class CacheHandler implements InvocationHandler {
     }
 
 
+    /**
+     *
+     * @param an
+     * @param args
+     * @return возвращаем список только тех аргументов, которые учитываются при определении уникальности результата
+     */
     List<Object> getKeysFromArgs(Cache an, Object[] args) {
         List<Object> result = new ArrayList<>();
         if (an.identityBy().length == 0) return Arrays.asList(args);

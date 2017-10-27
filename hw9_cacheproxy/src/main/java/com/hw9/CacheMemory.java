@@ -3,8 +3,12 @@ package com.hw9;
 import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ * Для кеширование в память. Хранилище имен кешируемых методов
+ * (или fileNamePrefix аннотации @Cache) и объектов {@link FileCache} c результатами
+ */
 public class CacheMemory{
-    private HashMap<String,FileCache> data;
+    private final HashMap<String,FileCache> data;
 
     public CacheMemory(){
         this.data = new HashMap<String, FileCache>();
@@ -19,7 +23,4 @@ public class CacheMemory{
         return data;
     }
 
-    public void setData(HashMap<String, FileCache> data) {
-        this.data = data;
-    }
 }

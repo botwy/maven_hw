@@ -32,8 +32,10 @@ Assert.assertTrue("Root folder не должна быть null", cacheProxy.getR
 
     @Test
     public void cacheService() throws NoSuchMethodException {
+        IService service = new ServiceImpl();
         CacheProxy cacheProxy = new CacheProxy("cache_files");
-        IService service = cacheProxy.cache(new ServiceImpl());
+        IService serviceCache = cacheProxy.cache(service);
+
 
         Method[] arr_method = IService.class.getMethods();
         Method method = null;
@@ -45,9 +47,9 @@ Class[]  arr_annotIdentBy = method.getAnnotation(Cache.class).identityBy();
         int length_AnnotIdentyBy = arr_annotIdentBy.length;
         double r1=0;
         double r2=0;
-        r1 = service.doHardWork("work1",3);
+        r1 = serviceCache.doHardWork("work1",3);
         System.out.println(r1);
-        r2 = service.doHardWork("work1",2);
+        r2 = serviceCache.doHardWork("work1",2);
         System.out.println(r2);
         if (length_AnnotIdentyBy==1 && arr_annotIdentBy[0].equals(String.class))
             Assert.assertTrue("r1 и r2 должны быть равны", r1==r2);
