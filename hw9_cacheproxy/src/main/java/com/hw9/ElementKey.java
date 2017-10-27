@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Составной ключ для использования в кешировании для поиска результата
 public class ElementKey implements Serializable{
     private final List<Object> multiple_key;
     private static final long serialVersionUID = 1L;
