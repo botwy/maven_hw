@@ -1,6 +1,9 @@
+import com.hw13_jmm_execution_manager.Context;
+import com.hw13_jmm_execution_manager.ExecutionManager;
+import com.hw13_jmm_execution_manager.ExecutionManagerImpl;
+import com.hw13_jmm_task.Task;
 import org.junit.Test;
 
-import java.sql.Time;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +15,7 @@ public class TaskExecTest {
             @Override
             public Integer call() throws Exception {
                 int x =10;
-                int y = 5;
+                int y = 3;
                 return x/y;
             }
         });

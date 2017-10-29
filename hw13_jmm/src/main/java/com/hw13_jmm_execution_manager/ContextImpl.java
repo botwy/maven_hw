@@ -1,3 +1,5 @@
+package com.hw13_jmm_execution_manager;
+
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Queue;

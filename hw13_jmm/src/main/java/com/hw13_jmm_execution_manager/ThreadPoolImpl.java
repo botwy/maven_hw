@@ -1,12 +1,13 @@
-import java.util.ArrayDeque;
+package com.hw13_jmm_execution_manager;
+
 import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
-//пул потоков, в который передаем объект ContextImpl
+//пул потоков, в который передаем объект com.hw13_jmm_execution_manager.ContextImpl
 public class ThreadPoolImpl implements ThreadPool {
 
     private final int num_threads;
-    private final MyThread[] threads;
+    private final ThreadInner[] threads;
     private Queue<Runnable> que;
     private volatile ContextImpl contextImpl;
 
@@ -15,7 +16,7 @@ public class ThreadPoolImpl implements ThreadPool {
 
     public ThreadPoolImpl(int num_threads) {
         this.num_threads = num_threads;
-        threads = new MyThread[num_threads];
+        threads = new ThreadInner[num_threads];
     }
 
 
@@ -23,13 +24,18 @@ public class ThreadPoolImpl implements ThreadPool {
     public void start() {
 
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new MyThread();
+            threads[i] = new ThreadInner();
             threads[i].start();
         }
 
     }
 
-    //выполнение задач инкапсулированных в объект ContextImpl (передача потокам)
+
+    /**
+     * выполнение задач инкапсулированных в объект com.hw13_jmm_execution_manager.ContextImpl (передача потокам)
+     * запуск отдельного потока, который после выполнения всех задач выполняет callback
+     * @param context
+     */
     @Override
     public void executeContext(Context context) {
         this.contextImpl = (ContextImpl) context;
@@ -57,7 +63,10 @@ public class ThreadPoolImpl implements ThreadPool {
 
     }
 
-    public class MyThread extends Thread {
+    /**
+     * Внутренний класс потока для нашего ThreadPool
+     */
+    public class ThreadInner extends Thread {
         @Override
         public void run() {
             Runnable runnable;

@@ -1,18 +1,18 @@
+import hw10_stream.Person;
+import hw10_stream.Streams;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class MyStreamTest {
+public class StreamsTest {
 
     @Test
     public void TestOf() {
         List<Integer> list = Arrays.asList(1,2,3);
-       MyStream<Integer> my_stream = MyStream.of(list);
+       Streams<Integer> my_stream = Streams.of(list);
 
         Assert.assertNotNull(my_stream);
 
@@ -34,7 +34,7 @@ public class MyStreamTest {
         Person person3 = new Person("Dima", 25);
 
         List<Person> list_pers = Arrays.asList(person1,person2,person3);
-        Map<String,Person> map_pers = MyStream.of(list_pers)
+        Map<String,Person> map_pers = Streams.of(list_pers)
                 .filter(p->p.getAge()>20)
                 .transform(p->new Person(p.getName(),p.getAge()+30))
                 .toMap(p->p.getName(),p->p);
