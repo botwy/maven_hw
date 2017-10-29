@@ -1,6 +1,8 @@
 package com.hw9;
 
 
+import static com.hw9.FileMemoryEnum.FILE;
+
 // реализация сервиса со сложным вычислением
 public class ServiceImpl implements IService{
 

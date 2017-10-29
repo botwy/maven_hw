@@ -1,4 +1,4 @@
-import com.hw9.Cache;
+import com.hw9.CacheAnnot;
 import com.hw9.CacheProxy;
 import com.hw9.IService;
 import com.hw9.ServiceImpl;
@@ -8,10 +8,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-public class CacheProxyTest {
+public class CacheAnnotProxyTest {
 
     @Ignore
     @Test
@@ -43,7 +42,7 @@ Assert.assertTrue("Root folder не должна быть null", cacheProxy.getR
             if (arr_method[i].getName().equals("doHardWork"))
                 method=arr_method[i];
         }
-Class[]  arr_annotIdentBy = method.getAnnotation(Cache.class).identityBy();
+Class[]  arr_annotIdentBy = method.getAnnotation(CacheAnnot.class).identityBy();
         int length_AnnotIdentyBy = arr_annotIdentBy.length;
         double r1=0;
         double r2=0;

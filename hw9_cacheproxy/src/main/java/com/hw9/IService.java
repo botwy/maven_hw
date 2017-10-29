@@ -1,10 +1,7 @@
 package com.hw9;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
-
-import static com.hw9.FileMemory.FILE;
-import static com.hw9.FileMemory.IN_MEMORY;
+import static com.hw9.FileMemoryEnum.FILE;
+import static com.hw9.FileMemoryEnum.IN_MEMORY;
 
 
 public interface IService {
@@ -15,6 +12,6 @@ public interface IService {
      * @param arg2
      * @return double результат вычисления
      */
-    @Cache(cacheType = FILE,identityBy = {String.class,Integer.class})
+    @CacheAnnot(cacheType = FILE,fileNamePrefix = "IService_doHardWork", identityBy = {String.class,Integer.class})
     double doHardWork(String action, Integer arg2);
 }

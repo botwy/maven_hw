@@ -8,7 +8,7 @@ import java.util.HashMap;
  * один объект на каждый метод
  * в режиме FILE сериализуется в файл
  */
-public class FileCache implements Serializable{
+public class DataObject implements Serializable{
     private static final long serialVersionUID = 1L;
     private HashMap<ElementKey,Double> map=new HashMap<>();
 

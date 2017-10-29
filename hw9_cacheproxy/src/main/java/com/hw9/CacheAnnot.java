@@ -11,13 +11,13 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Cache {
+public @interface CacheAnnot {
 
     /**
-     * @return FileMemory  enum FILE, IN_MEMORY. Определяем режим работы кеширования: просчитанный результат сериализовывать
+     * @return FileMemoryEnum  enum FILE, IN_MEMORY. Определяем режим работы кеширования: просчитанный результат сериализовывать
      * в файле на диск или хранить в памяти JVM
      */
-    FileMemory cacheType();
+    FileMemoryEnum cacheType();
 
     /**
      * @return String это имя файла для сериализации Если по умолчанию, файл будет назван именем метода,
