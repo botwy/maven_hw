@@ -1,4 +1,4 @@
-package com.botwy.chat_server;
+package com.botwy.chat_client;
 
 import com.botwy.schoolchat_api.Message;
 
@@ -8,6 +8,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * Клиент при получении сообщения просто выводит информацию: «user >> message_text»
+ * задание по получение новых входящих сообщений и выводу их на экран запускаем в отдельном потоке
+ * в основном потоке ждем данные, введенные с клавиатуры, от клиента и передаем на сервер
+ *  Контейнером для передаваемых сообщений является объект Message, который сериализуется,
+ *  передается по сети, при приеме десериализуется согласно общему API
+ */
 public class Client {
 
     public static void main(String[] args) {
@@ -71,8 +78,8 @@ public class Client {
                 }
 
             }
-//oos.close();
-// ois.close();
+                 //oos.close();
+                 // ois.close();
 
         } catch (IOException e) {
             e.printStackTrace();
