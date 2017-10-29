@@ -16,9 +16,9 @@ public class CacheHandler implements InvocationHandler {
     private final MemoryCache memoryCache;
     private final String root_folder;
 
-    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    private final Lock r = readWriteLock.readLock();
-    private final Lock w = readWriteLock.writeLock();
+   // private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+   // private final Lock r = readWriteLock.readLock();
+   // private final Lock w = readWriteLock.writeLock();
 
     private IMode modeCache=new DefaultModeImpl();
 
