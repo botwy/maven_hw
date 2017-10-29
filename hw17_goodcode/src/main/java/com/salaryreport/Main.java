@@ -7,8 +7,13 @@ import java.util.HashMap;
 public class Main {
 
     //Refactor
-//https://bitbucket.org/agoshkoviv/solid-homework/src/099989b0c762/src/main/java/ru/sbt/bit/ood/solid/homework/SalaryHtmlReportNotifier.java?at=master&fileviewer=file-view-default
+    //https://bitbucket.org/agoshkoviv/solid-homework/src/099989b0c762/src/main/java/ru/sbt/bit/ood/solid/homework/SalaryHtmlReportNotifier.java?at=master&fileviewer=file-view-default
     //generateAndSendHtmlSalaryReport
+
+    /**
+     * тот же функционал после рефакторинга с использованием новых классов и методов
+     * @param connect
+     */
     public static void generateAndSendHtmlSalaryReport(Connection connect) {
         String recipients="";
         Connection connection = connect;

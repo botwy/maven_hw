@@ -10,6 +10,10 @@ import java.util.HashMap;
 
 //Refactor
 //https://bitbucket.org/agoshkoviv/solid-homework/src/099989b0c762/src/main/java/ru/sbt/bit/ood/solid/homework/SalaryHtmlReportNotifier.java?at=master&fileviewer=file-view-default
+
+/**
+ * Универсальная утилита для генерации и отправки отчетов
+ */
 public class ReportUtil {
 
    /* //Deprecated
@@ -74,6 +78,13 @@ public class ReportUtil {
 
     }
 
+    /**
+     * статический универсальный метод (не только для зарплатного отчета)
+     * Генерирует любой отчет в html формате на основе входящих данных (HashMap)
+     * @param title
+     * @param stringDoubleMap
+     * @return html-код
+     */
     public static StringBuilder generateHtmlStringDoubleReport(String title, HashMap<String,Double> stringDoubleMap) {
         // create a StringBuilder holding a resulting html
         StringBuilder resultingHtml = new StringBuilder();
@@ -94,6 +105,13 @@ public class ReportUtil {
         return resultingHtml;
     }
 
+    /**
+     * статический универсальный метод (не только для зарплатного отчета)
+     * Отправляет любой отчет в формате html по e-mail
+     * @param resultingHtml
+     * @param recipients получатель письма
+     * @param subject тема письма
+     */
     public static void sendReportByEmail(StringBuilder resultingHtml, String recipients, String subject) {
        /* try {
             // now when the report is built we need to send it to the recipients list

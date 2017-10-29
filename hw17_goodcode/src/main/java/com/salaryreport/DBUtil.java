@@ -5,7 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * Отдельная утилита для работы с базой данных
+ */
 public class DBUtil {
+
+    /**
+     * статический метод для получения из базы данных информации по зарплате сотрудников
+     * @param params ParametersByDepartment
+     * @return HashMap<String,Double>
+     */
     public static HashMap<String,Double> getNameSalaryReport(ParametersByDepartment params) {
         HashMap<String,Double> map = new HashMap<>();
         try {
