@@ -15,22 +15,35 @@ import java.util.List;
 public abstract class AbstractMode implements IMode {
 
     @Override
-    public IMode askCurrMode(CacheAnnot an) {
-        if (an.cacheType() == FileMemoryEnum.IN_MEMORY) {
-            return new MemoryModeImpl();
-        } else if (an.cacheType() == FileMemoryEnum.FILE) {
-            return new FileModeImpl();
+    public IMode askCurrMode(Method method) {
+        if (method.isAnnotationPresent(CacheAnnot.class)) {
+            CacheAnnot an = method.getAnnotation(CacheAnnot.class);
+            if (an.cacheType() == FileMemoryEnum.IN_MEMORY)
+                return new MemoryModeImpl();
+
+            if (an.cacheType() == FileMemoryEnum.FILE)
+                return new FileModeImpl();
+
+        }
+
+        if (method.isAnnotationPresent(Cachable.class)) {
+            Cachable an = method.getAnnotation(Cachable.class);
+            if (an.persistent())
+                return new h2DBModeImpl();
+
+            if (!an.persistent())
+                return new MemoryModeImpl();
         }
         return new DefaultModeImpl();
     }
 
     /**
-     *
      * @param an
      * @param method
      * @return Получаем на основе аннотаций или названии метода префикс, используемый в имени файла
      * или в качестве ключа других хранилищах кешируемых данных
      */
+
     protected String askPrefix(CacheAnnot an, Method method) {
         String prefix = "";
         if (an.fileNamePrefix().equals(""))
@@ -90,6 +103,7 @@ public abstract class AbstractMode implements IMode {
 
     /**
      * Сериализация. Запись в файл.
+     *
      * @param file_name
      * @param dataObject
      */

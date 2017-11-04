@@ -11,9 +11,9 @@ import java.lang.reflect.Method;
 public class MemoryModeImpl extends AbstractMode {
 
     @Override
-    public Object exec (CacheHandler context, Method method, Object[] args, CacheAnnot an)
+    public Object exec (CacheHandler context, Method method, Object[] args)
             throws InvocationTargetException, IllegalAccessException {
-
+        CacheAnnot an = method.getAnnotation(CacheAnnot.class);
         String prefix = askPrefix(an, method);
         MemoryCache memoryCache = context.getMemoryCache();
         Double result = null;

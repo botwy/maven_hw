@@ -11,9 +11,8 @@ import java.lang.reflect.Method;
  */
 public class FileModeImpl extends AbstractMode{
     @Override
-    public Object exec (CacheHandler context, Method method, Object[] args, CacheAnnot an)
-            throws InvocationTargetException, IllegalAccessException {
-
+    public Object exec (CacheHandler context, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
+        CacheAnnot an = method.getAnnotation(CacheAnnot.class);
         String prefix = askPrefix(an, method);
         String file_name = prefix;
         if (context.getRoot_folder().length() > 0) {

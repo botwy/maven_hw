@@ -10,8 +10,9 @@ import java.lang.reflect.Method;
 public class DefaultModeImpl extends AbstractMode {
 
     @Override
-    public Object exec (CacheHandler context, Method method, Object[] args, CacheAnnot an)
+    public Object exec (CacheHandler context, Method method, Object[] args)
             throws InvocationTargetException, IllegalAccessException {
+
         return method.invoke(context.getDelegate(), args);
     }
 }

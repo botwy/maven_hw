@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -58,16 +59,11 @@ public class CacheHandler implements InvocationHandler {
      * @throws IllegalAccessException в случае при исполнении invoke метода объекта-делегата нашего сервиса,
      * этот метод будет не доступен (not access)
      */
-    public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
+    public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException, SQLException, DbCacheException {
 
-        if (method.isAnnotationPresent(CacheAnnot.class)) {
-            CacheAnnot an = method.getAnnotation(CacheAnnot.class);
-            modeCache = modeCache.askCurrMode(an);
-            return modeCache.exec(this,method,args,an);
-        }
+            modeCache = modeCache.askCurrMode(method);
+            return modeCache.exec(this,method,args);
 
-
-        return method.invoke(delegate, args);
     }
 
 
