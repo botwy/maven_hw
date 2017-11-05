@@ -1,14 +1,13 @@
 package com.hw9;
 
-import java.io.*;
+import com.hw9.exception.DbCacheException;
+import com.hw9.modes.DefaultModeImpl;
+import com.hw9.modes.IMode;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 //обработчик метода для прокси
 public class CacheHandler implements InvocationHandler {

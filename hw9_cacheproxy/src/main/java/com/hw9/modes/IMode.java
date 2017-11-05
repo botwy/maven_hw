@@ -1,4 +1,7 @@
-package com.hw9;
+package com.hw9.modes;
+
+import com.hw9.CacheHandler;
+import com.hw9.exception.DbCacheException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

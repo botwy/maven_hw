@@ -1,7 +1,7 @@
 package com.hw9;
 
-import static com.hw9.FileMemoryEnum.FILE;
-import static com.hw9.FileMemoryEnum.IN_MEMORY;
+import com.hw9.annotation.Cachable;
+import com.hw9.modes.AbstractMode;
 
 
 public interface IService {
@@ -12,6 +12,7 @@ public interface IService {
      * @param arg2
      * @return double результат вычисления
      */
-    @CacheAnnot(cacheType = FILE,fileNamePrefix = "IService_doHardWork", identityBy = {String.class,Integer.class})
+  //  @CacheAnnot(cacheType = FILE,fileNamePrefix = "IService_doHardWork", identityBy = {String.class,Integer.class})
+    @Cachable(persistent = true)
     double doHardWork(String action, Integer arg2);
 }

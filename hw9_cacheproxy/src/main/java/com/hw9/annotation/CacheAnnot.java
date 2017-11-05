@@ -1,10 +1,11 @@
-package com.hw9;
+package com.hw9.annotation;
+
+import com.hw9.FileMemoryEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
 
 /**
  * с помощью аннотации указываем, какие методы кешировать и как

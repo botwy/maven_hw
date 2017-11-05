@@ -1,4 +1,4 @@
-package com.hw9;
+package com.hw9.exception;
 
 public class DbCacheException extends Exception{
 

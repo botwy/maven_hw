@@ -1,7 +1,6 @@
-import com.hw9.CacheAnnot;
-import com.hw9.CacheProxy;
-import com.hw9.IService;
-import com.hw9.ServiceImpl;
+import com.hw9.*;
+import com.hw9.annotation.CacheAnnot;
+import com.hw9.modes.AbstractMode;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import org.mockito.Mockito;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class CacheAnnotProxyTest {
+public class CacheAnnotAnnotProxyTest {
 
     @Ignore
     @Test

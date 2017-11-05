@@ -1,6 +1,15 @@
-package com.hw9;
+package com.hw9.modes;
+
+import com.hw9.DataObject;
+import com.hw9.FileMemoryEnum;
+import com.hw9.annotation.Cachable;
+import com.hw9.annotation.CacheAnnot;
 
 import java.io.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,9 +17,12 @@ import java.util.List;
 
 /**
  * Абстрактный режим кеширования, где есть общие методы для конкретных режимов
- * При кешировании в обоих режимах используем объект DataObject, содержащий составной ключ
+ * При кешировании в режимах FILE и IN_MEMORY используем объект DataObject, содержащий составной ключ
  * из названия метода, аргументов, учитываемых
  * при определении уникальности результата и сам результат кешируемого метода
+ *
+ * Если есть аннотация Cachable и её поле persistent true, то кеширование осуществляем через базу данных h2 (режим h2DBModeImpl)
+ * Если persistent false, то кешируем в оперативной памяти (используем режим MemoryModeImpl)
  */
 public abstract class AbstractMode implements IMode {
 
@@ -120,4 +132,8 @@ public abstract class AbstractMode implements IMode {
 
 
     }
+
+
+
+
 }

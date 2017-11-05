@@ -12,11 +12,13 @@ public class Main {
         IService serviceCache = cacheProxy.cache(service);
 
 
-        double r1=0;
+        Object r1=0;
 
         r1 = serviceCache.doHardWork("work1",3);
         System.out.println(r1);
         r1 = serviceCache.doHardWork("work1",2);
+        System.out.println(r1);
+        r1 = serviceCache.doHardWork("work2",5);
         System.out.println(r1);
 
     }
