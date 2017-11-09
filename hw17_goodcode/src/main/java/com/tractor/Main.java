@@ -34,7 +34,7 @@ public class Main {
         System.out.println(tractor.position[0]+" "+tractor.position[1]);
         System.out.println(tractor.orientation);
 
-    
+    Thread.currentThread().isInterrupted();
 
 
     }

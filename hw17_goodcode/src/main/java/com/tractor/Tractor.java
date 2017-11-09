@@ -78,4 +78,14 @@ public class Tractor {
         return orientation;
     }
 
+    public static class Speed {
+        public Speed(){
+
+        }
+
+        public static void increese(){
+
+        }
+    }
+
 }
