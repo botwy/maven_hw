@@ -13,6 +13,7 @@
         <module name="hw15_schoolchat_server" />
         <module name="hw16_JIT_GC" />
         <module name="hw17_goodcode" />
+        <module name="hw24_spring_jdbc" />
         <module name="hw9_cacheproxy" />
         <module name="SchoolChatAPI" />
         <module name="sgu2056" />
@@ -21,16 +22,17 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="hw10_stream" target="1.8" />
-      <module name="hw11_12_thread" target="1.8" />
-      <module name="hw13_jmm" target="1.8" />
-      <module name="hw15_schoolchat_client" target="1.8" />
-      <module name="hw15_schoolchat_server" target="1.8" />
-      <module name="hw16_JIT_GC" target="1.8" />
-      <module name="hw17_goodcode" target="1.8" />
-      <module name="hw9_cacheproxy" target="1.8" />
-      <module name="maven_hw" target="1.8" />
-      <module name="SchoolChatAPI" target="1.8" />
+      <module name="hw10_stream" target="1.7" />
+      <module name="hw11_12_thread" target="1.7" />
+      <module name="hw13_jmm" target="1.7" />
+      <module name="hw15_schoolchat_client" target="1.7" />
+      <module name="hw15_schoolchat_server" target="1.7" />
+      <module name="hw16_JIT_GC" target="1.7" />
+      <module name="hw17_goodcode" target="1.7" />
+      <module name="hw24_spring_jdbc" target="1.7" />
+      <module name="hw9_cacheproxy" target="1.7" />
+      <module name="maven_hw" target="1.7" />
+      <module name="SchoolChatAPI" target="1.7" />
       <module name="sgu2056" target="1.7" />
       <module name="sgu2057" target="1.7" />
       <module name="sgu2059" target="1.7" />
