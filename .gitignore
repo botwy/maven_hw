@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+# .iml files
 *.iml
-out/
+
+## File-based project format:
+*.ipr
+*.iws
+*.ids
+
+#all files in .idea directory
 .idea/
+
+# IntelliJ
+/out/
+
+# Deployment properites
+**/kmd-cluster-deployment/*.properties
+
+### target directories
+**/target/
+**/logs/
+**/log/
+
+ignite.properties
+
+*.log
+
+>>>>>>> 0ba384b4b74a5268bf01b7e0a520a77639117c34
