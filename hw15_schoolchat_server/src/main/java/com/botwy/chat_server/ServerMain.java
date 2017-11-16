@@ -6,6 +6,13 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * создаем ServerSocket слушатель порта 3000
+ * затем в бесконечном цикле блокируем поток, ожидая подключения клиента socketListener.accept()
+ * как только клиент подключился создаем задание Runnable, передавая ему сокет клиента и ссылку на объект DataBase
+ * с данными чата
+ * Это задание передаем на выполнение пулу потоков
+ */
 public class ServerMain {
 
     private static final DataBase dataBase=new DataBase();
@@ -22,7 +29,6 @@ public class ServerMain {
                 executor.execute(connection);
             }
 
-            socketListener.close();
 
         } catch (IOException e) {
             e.printStackTrace();

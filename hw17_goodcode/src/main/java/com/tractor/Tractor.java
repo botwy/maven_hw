@@ -1,69 +1,73 @@
 package com.tractor;
 
+/**
+ * добавлено поле с типом интерфейса IStateOrient (состояние)
+ */
 public class Tractor {
 
-    int[] position = new int[] { 0, 0 };
-    int[] field = new int[] { 5, 5 };
+    private int[] position = new int[]{0, 0};
+    private int[] field = new int[]{5, 5};
     Orientation orientation = Orientation.NORTH;
 
-    @Deprecated
-    public void move(String command) {
-        if (command == "F")
-            moveForwards();
+    private IStateOrient stateOrient = new NorthState();
 
-        if (command == "T")
-            turnClockwise();
-
+    public void setStateOrient(IStateOrient stateOrient) {
+        this.stateOrient = stateOrient;
     }
 
-@Deprecated
-    public void moveForwards() {
-        if (orientation == Orientation.NORTH) {
-            position = new int[] { position[0], position[1] + 1 };
-        } else if (orientation == Orientation.EAST) {
-            position = new int[] { position[0] + 1, position[1] };
-        } else if (orientation == Orientation.SOUTH) {
-            position = new int[] { position[0], position[1] - 1 };
-        } else if (orientation == Orientation.WEST) {
-            position = new int[] { position[0] - 1, position[1] };
-        }
-        if (position[0] > field[0] || position[1] > field[1]) {
-            throw new TractorInDitchException();
-        }
+    public void setPosition(int[] position) {
+        this.position = position;
     }
-@Deprecated
-    public void turnClockwise() {
-        if (orientation == Orientation.NORTH) {
-            orientation = Orientation.EAST;
-        } else if (orientation == Orientation.EAST) {
-            orientation = Orientation.SOUTH;
-        } else if (orientation == Orientation.SOUTH) {
-            orientation = Orientation.WEST;
-        } else if (orientation == Orientation.WEST) {
-            orientation = Orientation.NORTH;
-        }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public int[] getField() {
+        return field;
+    }
+
+    /**
+     *  при движении используем поле с типом интерфейса IStateOrient (состояние)
+     *  вызываем у этого метод move и передаем ссылку на себя(текущий объект Tractor)
+     */
+    public void moveForwardsNewState() {
+        stateOrient.move(this);
+    }
+
+    /**
+     * при поворотах используем поле с типом интерфейса IStateOrient (состояние)
+     *  вызываем у этого метод turnClockWise и передаем ссылку на себя(текущий объект Tractor)
+     */
+    public void turnClockwiseNewState() {
+        stateOrient.turnClockWise(this);
     }
 
     public void moveNew(String command) {
         if (command == "F")
-            moveForwardsNew();
+            moveForwardsNewState();
 
         if (command == "T")
-            turnClockwiseNew();
+            turnClockwiseNewState();
 
     }
 
+
+
+
+    @Deprecated
     public void moveForwardsNew() {
-       Integer[] moveVector = orientation.getVectorForward();
-       position=new int[] {position[0]+moveVector[0],position[1]+moveVector[1]};
+        Integer[] moveVector = orientation.getVectorForward();
+        position = new int[]{position[0] + moveVector[0], position[1] + moveVector[1]};
 
         if (position[0] > field[0] || position[1] > field[1]) {
             throw new TractorInDitchException();
         }
     }
 
+    @Deprecated
     public void turnClockwiseNew() {
-       orientation = orientation.turnClockWise();
+        orientation = orientation.turnClockWise();
     }
 
     public int getPositionX() {
@@ -78,14 +82,45 @@ public class Tractor {
         return orientation;
     }
 
-    public static class Speed {
-        public Speed(){
 
+    @Deprecated
+    public void move(String command) {
+        if (command == "F")
+            moveForwards();
+
+        if (command == "T")
+            turnClockwise();
+
+    }
+
+    @Deprecated
+    public void moveForwards() {
+        if (orientation == Orientation.NORTH) {
+            position = new int[]{position[0], position[1] + 1};
+        } else if (orientation == Orientation.EAST) {
+            position = new int[]{position[0] + 1, position[1]};
+        } else if (orientation == Orientation.SOUTH) {
+            position = new int[]{position[0], position[1] - 1};
+        } else if (orientation == Orientation.WEST) {
+            position = new int[]{position[0] - 1, position[1]};
         }
-
-        public static void increese(){
-
+        if (position[0] > field[0] || position[1] > field[1]) {
+            throw new TractorInDitchException();
         }
     }
+
+    @Deprecated
+    public void turnClockwise() {
+        if (orientation == Orientation.NORTH) {
+            orientation = Orientation.EAST;
+        } else if (orientation == Orientation.EAST) {
+            orientation = Orientation.SOUTH;
+        } else if (orientation == Orientation.SOUTH) {
+            orientation = Orientation.WEST;
+        } else if (orientation == Orientation.WEST) {
+            orientation = Orientation.NORTH;
+        }
+    }
+
 
 }

@@ -5,7 +5,6 @@ import java.lang.reflect.Proxy;
 
 /**
  * создаёт кеширующий прокси для интерфейса любого типа
- * @param <T> тип интерфейса, который хоти закешировать
  */
 public class CacheProxy {
 private String root_folder="";

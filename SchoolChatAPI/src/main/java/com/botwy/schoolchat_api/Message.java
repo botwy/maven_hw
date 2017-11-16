@@ -2,6 +2,11 @@ package com.botwy.schoolchat_api;
 
 import java.io.Serializable;
 
+/**
+ * Является Контейнером для передаваемых сообщений,
+ * имеет 3 конструктора. Сериализуется, передается по сети, при приеме десериализуется.
+ * Является API для сервера и клиента чата, на этот модуль нужно установить зависимость в модулях сервера и клиента
+ */
 public class Message implements Serializable{
     private Command command;
     private String user_name;
@@ -31,6 +36,10 @@ public class Message implements Serializable{
         return command;
     }
 
+    /**
+     *
+     * @return пользователя-отправителя (создателя) сообщения
+     */
     public String getUser_name() {
         return user_name;
     }
@@ -43,6 +52,12 @@ public class Message implements Serializable{
         return text;
     }
 
+    /**
+     * Перечень комманд, которые исполняет сервер чата
+     *  LOGIN войти в чат
+     *  SEND отправить сообщение конкретному получателю
+     *  GET получить все сообщения, адресованные конкретному получателю
+     */
     public enum Command {
         LOGIN,
         SEND,
