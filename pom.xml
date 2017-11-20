@@ -36,5 +36,6 @@
         <module>hw15_schoolchat_client</module>
         <module>hw17_goodcode</module>
         <module>hw24_spring_jdbc</module>
+        <module>hw30_jms</module>
     </modules>
 </project>
