@@ -14,6 +14,7 @@
         <module name="hw16_JIT_GC" />
         <module name="hw17_goodcode" />
         <module name="hw24_spring_jdbc" />
+        <module name="hw25_orm" />
         <module name="hw9_cacheproxy" />
         <module name="SchoolChatAPI" />
         <module name="sgu2056" />
@@ -30,6 +31,7 @@
       <module name="hw16_JIT_GC" target="1.7" />
       <module name="hw17_goodcode" target="1.7" />
       <module name="hw24_spring_jdbc" target="1.7" />
+      <module name="hw25_orm" target="1.7" />
       <module name="hw9_cacheproxy" target="1.7" />
       <module name="maven_hw" target="1.7" />
       <module name="SchoolChatAPI" target="1.7" />
