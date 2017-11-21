@@ -37,5 +37,6 @@
         <module>hw17_goodcode</module>
         <module>hw24_spring_jdbc</module>
         <module>hw30_jms</module>
+        <module>hw25_spring_data</module>
     </modules>
 </project>
