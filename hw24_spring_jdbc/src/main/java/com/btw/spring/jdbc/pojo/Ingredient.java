@@ -1,4 +1,4 @@
-package com.btw.spring_jdbc.pojo;
+package com.btw.spring.jdbc.pojo;
 
 import org.springframework.stereotype.Component;
 

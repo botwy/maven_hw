@@ -1,7 +1,7 @@
-package com.btw.spring_jdbc;
+package com.btw.spring.jdbc;
 
-import com.btw.spring_jdbc.pojo.Ingredient;
-import com.btw.spring_jdbc.pojo.Recipe;
+import com.btw.spring.jdbc.pojo.Ingredient;
+import com.btw.spring.jdbc.pojo.Recipe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

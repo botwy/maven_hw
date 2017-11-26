@@ -6,7 +6,6 @@
 
     <artifactId>SchoolChatAPI</artifactId>
 
-
     <parent>
         <artifactId>maven_hw</artifactId>
         <groupId>com.botwy</groupId>

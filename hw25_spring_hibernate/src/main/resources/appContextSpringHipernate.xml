@@ -11,7 +11,7 @@
         <property name="driverClassName" value="org.h2.Driver" />
         <property name="url" value="jdbc:h2:./database/test_orm" />
         <property name="username" value="su" />
-        <property name="password" value="1234"/>
+        <property name="password" value=""/>
     </bean>
 
     <!-- Hibernate 3 XML SessionFactory Bean definition-->

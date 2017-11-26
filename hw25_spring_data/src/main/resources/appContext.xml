@@ -9,9 +9,17 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    <jpa:repositories base-package="repository"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:./database/test_spr_data" />
+        <property name="username" value="su" />
+        <property name="password">
+            <value></value>
+        </property>
     </bean>
+
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -19,16 +27,25 @@
         <property name="packagesToScan" value="com.javacodegeeks.spring.jpa" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="HSQL" />
-                <property name="generateDdl" value="true" />
             </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.default_schema">PUBLIC</prop>
+            </props>
         </property>
     </bean>
 
-    <jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath:data.sql" />
-    </jdbc:initialize-database>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
 
-    <jdbc:embedded-database id="dataSource" type="HSQL" />
+
+
+
+
 
 </beans>

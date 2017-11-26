@@ -1,30 +1,25 @@
 package com.spring_data;
 
         import java.net.URISyntaxException;
-        import java.sql.Connection;
-        import java.sql.SQLException;
         import java.util.List;
 
         import javax.sql.DataSource;
 
         import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.context.annotation.AnnotationConfigApplicationContext;
         import org.springframework.context.annotation.Configuration;
-        import org.springframework.context.annotation.Import;
-        import org.springframework.core.io.ClassPathResource;
+        import org.springframework.context.support.ClassPathXmlApplicationContext;
         import org.springframework.data.domain.Page;
         import org.springframework.data.domain.PageRequest;
         import org.springframework.data.domain.Pageable;
         import org.springframework.data.domain.Sort.Direction;
         import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-        import org.springframework.jdbc.datasource.DataSourceUtils;
-        import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
         import org.springframework.transaction.annotation.Transactional;
+        import repository.EmployeeRepository2;
 
 
 @Configuration("mainBean")
-@EnableJpaRepositories(basePackages = "com.javacodegeeks.spring.repositories")
-@Import(JpaConfig.class)
+@EnableJpaRepositories(basePackages = "com.spring_data")
+//@Import(JpaConfig.class)
 @Transactional
 public class SpringDataJpaExampleUsingAnnotation {
     @Autowired
@@ -34,8 +29,20 @@ public class SpringDataJpaExampleUsingAnnotation {
     private DataSource dataSource;
 
     public static void main(String[] args) throws URISyntaxException, Exception {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        try {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("appContext.xml");
+
+        EmployeeRepository2 employeeRepository = ctx.getBean(EmployeeRepository2.class);
+        Employee emp1 = new Employee("Richard", 32);
+        Employee emp2 = new Employee("Satish", 30);
+        Employee emp3 = new Employee("Priya", 16);
+        Employee emp4 = new Employee("Rimi", 30);
+
+        employeeRepository.save(emp1);
+        employeeRepository.save(emp2);
+        employeeRepository.save(emp3);
+        employeeRepository.save(emp4);
+
+        /*try {
             ctx.register(SpringDataJpaExampleUsingAnnotation.class);
             ctx.refresh();
             System.out.println("Load context");
@@ -60,7 +67,7 @@ public class SpringDataJpaExampleUsingAnnotation {
             s.findEmployeesGreaterThanAgePageWise(20, 2, 1);
         } finally {
             ctx.close();
-        }
+        }*/
     }
 
     public void addEmployees() {

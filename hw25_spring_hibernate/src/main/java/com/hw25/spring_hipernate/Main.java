@@ -14,7 +14,8 @@ public class Main {
         PersonDAO personDAO = context.getBean(PersonDAO.class);
 
         Person person = new Person();
-        person.setName("Pankaj"); person.setCountry("India");
+        person.setName("Pankaj");
+        person.setCountry("India");
 
         personDAO.save(person);
 
