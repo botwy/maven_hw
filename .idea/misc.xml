@@ -4,14 +4,12 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/hw15_schoolchat_server/pom.xml" />
-        <option value="$PROJECT_DIR$/SchoolChatAPI/pom.xml" />
-        <option value="$PROJECT_DIR$/hw17_goodcode/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/hw10_stream/pom.xml" />
+        <option value="$PROJECT_DIR$/hw25_orm/pom.xml" />
         <option value="$PROJECT_DIR$/hw9_cacheproxy/pom.xml" />
       </set>
     </option>
