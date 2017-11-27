@@ -3,9 +3,10 @@ package com.spring_data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable{
     @Id
     @GeneratedValue
     private Long id;

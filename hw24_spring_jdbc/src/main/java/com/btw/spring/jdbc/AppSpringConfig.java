@@ -1,4 +1,4 @@
-package com.btw.spring_jdbc;
+package com.btw.spring.jdbc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
