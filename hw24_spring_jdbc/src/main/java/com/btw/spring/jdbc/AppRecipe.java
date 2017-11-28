@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.PostConstruct;
@@ -51,7 +52,7 @@ public class AppRecipe {
     }
 
     //нужен preparestatement
-
+    @Transactional
     public void insertRecipe(String recipeName, List<Ingredient> ingredientList) {
 
         int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (':recipeName')"
@@ -71,7 +72,7 @@ public class AppRecipe {
     public Recipe getRecipesByName(String reqName) {
 
         List<Recipe> recipeList = namedParameterJdbcTemplate.query("SELECT * FROM RECIPE where name like :reqName",
-                new MapSqlParameterSource("reqName", reqName+"%"),
+                new MapSqlParameterSource("reqName", reqName + "%"),
                 new RowMapper<Recipe>() {
 
                     @Override
