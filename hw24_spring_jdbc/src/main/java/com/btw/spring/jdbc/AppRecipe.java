@@ -46,16 +46,16 @@ public class AppRecipe {
                 " qty DECIMAL(5)," +
                 " measure VARCHAR(10)," +
                 " id_recipe NUMBER(18)," +
-                " CONSTRAINT IF NOT EXISTS FK_ID_RECIPE FOREIGN KEY(id_recipe) REFERENCES RECIPE(id)" +
+             //   " CONSTRAINT IF NOT EXISTS FK_ID_RECIPE FOREIGN KEY(id_recipe) REFERENCES RECIPE(id)" +
                 ")");
 
     }
 
     //нужен preparestatement
-    @Transactional
+   @Transactional
     public void insertRecipe(String recipeName, List<Ingredient> ingredientList) {
 
-        int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (':recipeName')"
+        int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (:recipeName)"
                 , new MapSqlParameterSource("recipeName", recipeName));
 
         SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(ingredientList.toArray());
@@ -77,6 +77,7 @@ public class AppRecipe {
 
                     @Override
                     public Recipe mapRow(ResultSet resultSet, int i) throws SQLException {
+
                         return new Recipe(resultSet.getInt(1), resultSet.getString(2));
                     }
                 });
@@ -120,7 +121,6 @@ public class AppRecipe {
         if (recipeList.isEmpty()) return null;
 
         Recipe recipe = recipeList.get(0);
-
         namedParameterJdbcTemplate.update("DELETE FROM INGREDIENT where id_recipe=:idRecipe"
                 , new MapSqlParameterSource(ID_RECIPE, recipe.getId()));
 

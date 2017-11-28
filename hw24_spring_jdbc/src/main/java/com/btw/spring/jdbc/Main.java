@@ -41,19 +41,19 @@ public class Main {
                     System.out.println("ввести меру ингридиента");
                     String measureIng = scanner.nextLine();
 
-                    ingredient.setName(nameIng);
+                    ingredient.setName(nameIng.toLowerCase());
                     ingredient.setQty(qtyIng);
-                    ingredient.setMeasure(measureIng);
+                    ingredient.setMeasure(measureIng.toLowerCase());
                     ingredientList.add(ingredient);
                 }
 
-                app.insertRecipe(nameRecipe, ingredientList);
+                app.insertRecipe(nameRecipe.toLowerCase(), ingredientList);
             }
             if (command == 2) {
                 System.out.println("ввести имя рецепта, который ищите");
                 String reqName = scanner.nextLine();
 
-                Recipe recipe = app.getRecipesByName(reqName);
+                Recipe recipe = app.getRecipesByName(reqName.toLowerCase());
                 if(recipe==null) continue;
                 System.out.println("Рецепт: " + recipe);
                 System.out.println("Ингридиенты: ");
@@ -67,7 +67,7 @@ public class Main {
                 System.out.println("ввести имя рецепта, который хотите удалить");
                 String reqName = scanner.nextLine();
 
-                Recipe recipe = app.getRecipesByName(reqName);
+                Recipe recipe = app.deleteRecipe(reqName.toLowerCase());
                 if(recipe==null) {
                     System.out.println("Рецепт не найден");
                     continue;

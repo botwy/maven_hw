@@ -32,7 +32,8 @@
       <module name="hw15_schoolchat_server" target="1.7" />
       <module name="hw16_JIT_GC" target="1.7" />
       <module name="hw17_goodcode" target="1.7" />
-      <module name="hw24_spring_jdbc" target="1.8" />
+      <module name="hw24_spring_jdbc" target="1.7" />
+      <module name="hw25_orm" target="1.7" />
       <module name="hw25_spring_data" target="1.7" />
       <module name="hw30_jms" target="1.7" />
       <module name="hw9_cacheproxy" target="1.7" />
