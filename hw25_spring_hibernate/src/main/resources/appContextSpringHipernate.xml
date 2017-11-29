@@ -38,7 +38,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.hw25.spring_hipernate.Person</value>
+                <value>com.hw25.spring_hibernate.Person</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -52,7 +52,7 @@
         </property>
     </bean>
 
-    <bean id="personDAO" class="com.hw25.spring_hipernate.PersonDAOImpl">
+    <bean id="personDAO" class="com.hw25.spring_hibernate.PersonDAOImpl">
         <property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
     </bean>
 </beans>

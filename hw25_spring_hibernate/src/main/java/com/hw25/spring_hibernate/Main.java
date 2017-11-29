@@ -1,4 +1,4 @@
-package com.hw25.spring_hipernate;
+package com.hw25.spring_hibernate;
 
 import java.util.List;
 
