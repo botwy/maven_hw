@@ -46,7 +46,7 @@ public class AppRecipe {
                 " qty DECIMAL(5)," +
                 " measure VARCHAR(10)," +
                 " id_recipe NUMBER(18)," +
-             //   " CONSTRAINT IF NOT EXISTS FK_ID_RECIPE FOREIGN KEY(id_recipe) REFERENCES RECIPE(id)" +
+                " CONSTRAINT IF NOT EXISTS FK_ID_RECIPE FOREIGN KEY(id_recipe) REFERENCES RECIPE(id)" +
                 ")");
 
     }
@@ -68,7 +68,7 @@ public class AppRecipe {
      * @param reqName
      * @return null если рецепт по имени не найден
      */
-
+    @Transactional
     public Recipe getRecipesByName(String reqName) {
 
         List<Recipe> recipeList = namedParameterJdbcTemplate.query("SELECT * FROM RECIPE where name like :reqName",
@@ -105,7 +105,7 @@ public class AppRecipe {
 
     }
 
-
+    @Transactional
     public Recipe deleteRecipe(String reqName) {
 
         List<Recipe> recipeList = namedParameterJdbcTemplate.query("SELECT * FROM RECIPE where name = :reqName",
