@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.PostConstruct;
@@ -51,10 +52,10 @@ public class AppRecipe {
     }
 
     //нужен preparestatement
-
+   @Transactional
     public void insertRecipe(String recipeName, List<Ingredient> ingredientList) {
 
-        int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (':recipeName')"
+        int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (:recipeName)"
                 , new MapSqlParameterSource("recipeName", recipeName));
 
         SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(ingredientList.toArray());
@@ -67,15 +68,16 @@ public class AppRecipe {
      * @param reqName
      * @return null если рецепт по имени не найден
      */
-
+    @Transactional
     public Recipe getRecipesByName(String reqName) {
 
         List<Recipe> recipeList = namedParameterJdbcTemplate.query("SELECT * FROM RECIPE where name like :reqName",
-                new MapSqlParameterSource("reqName", reqName+"%"),
+                new MapSqlParameterSource("reqName", reqName + "%"),
                 new RowMapper<Recipe>() {
 
                     @Override
                     public Recipe mapRow(ResultSet resultSet, int i) throws SQLException {
+
                         return new Recipe(resultSet.getInt(1), resultSet.getString(2));
                     }
                 });
@@ -103,7 +105,7 @@ public class AppRecipe {
 
     }
 
-
+    @Transactional
     public Recipe deleteRecipe(String reqName) {
 
         List<Recipe> recipeList = namedParameterJdbcTemplate.query("SELECT * FROM RECIPE where name = :reqName",
@@ -119,7 +121,6 @@ public class AppRecipe {
         if (recipeList.isEmpty()) return null;
 
         Recipe recipe = recipeList.get(0);
-
         namedParameterJdbcTemplate.update("DELETE FROM INGREDIENT where id_recipe=:idRecipe"
                 , new MapSqlParameterSource(ID_RECIPE, recipe.getId()));
 
