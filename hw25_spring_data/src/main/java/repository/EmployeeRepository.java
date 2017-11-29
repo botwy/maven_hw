@@ -1,4 +1,4 @@
-package com.spring_data;
+package repository;
 
 import java.util.List;
 

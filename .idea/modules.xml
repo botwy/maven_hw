@@ -11,8 +11,9 @@
       <module fileurl="file://$PROJECT_DIR$/hw16_JIT_GC/hw16_JIT_GC.iml" filepath="$PROJECT_DIR$/hw16_JIT_GC/hw16_JIT_GC.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw17_goodcode/hw17_goodcode.iml" filepath="$PROJECT_DIR$/hw17_goodcode/hw17_goodcode.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw24_spring_jdbc/hw24_spring_jdbc.iml" filepath="$PROJECT_DIR$/hw24_spring_jdbc/hw24_spring_jdbc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hw25_orm/hw25_orm.iml" filepath="$PROJECT_DIR$/hw25_orm/hw25_orm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw25_spring_boot/hw25_spring_boot.iml" filepath="$PROJECT_DIR$/hw25_spring_boot/hw25_spring_boot.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw25_spring_data/hw25_spring_data.iml" filepath="$PROJECT_DIR$/hw25_spring_data/hw25_spring_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hw25_spring_hibernate/hw25_spring_hibernate.iml" filepath="$PROJECT_DIR$/hw25_spring_hibernate/hw25_spring_hibernate.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw30_jms/hw30_jms.iml" filepath="$PROJECT_DIR$/hw30_jms/hw30_jms.iml" />
       <module fileurl="file://$PROJECT_DIR$/hw9_cacheproxy/hw9_cacheproxy.iml" filepath="$PROJECT_DIR$/hw9_cacheproxy/hw9_cacheproxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven_hw.iml" filepath="$PROJECT_DIR$/maven_hw.iml" />

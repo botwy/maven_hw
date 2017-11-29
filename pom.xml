@@ -38,5 +38,6 @@
         <module>hw24_spring_jdbc</module>
         <module>hw30_jms</module>
         <module>hw25_spring_data</module>
+        <module>hw25_spring_boot</module>
     </modules>
 </project>
