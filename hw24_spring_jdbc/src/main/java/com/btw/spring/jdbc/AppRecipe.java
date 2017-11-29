@@ -4,17 +4,22 @@ import com.btw.spring.jdbc.pojo.Ingredient;
 import com.btw.spring.jdbc.pojo.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -53,15 +58,28 @@ public class AppRecipe {
 
     //нужен preparestatement
    @Transactional
-    public void insertRecipe(String recipeName, List<Ingredient> ingredientList) {
+    public void insertRecipe(final String recipeName, List<Ingredient> ingredientList) {
 
-        int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (:recipeName)"
-                , new MapSqlParameterSource("recipeName", recipeName));
+     //   int idRecipe = namedParameterJdbcTemplate.update("INSERT INTO RECIPE (name) values (:recipeName)"
+       //         , new MapSqlParameterSource("recipeName", recipeName));
+
+       KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(
+                        "INSERT INTO RECIPE (name) values (?)",
+                        new String[]{"id"}
+                );
+                ps.setString(1,recipeName);
+                return ps;
+            }
+        },keyHolder);
 
         SqlParameterSource[] batchParams = SqlParameterSourceUtils.createBatch(ingredientList.toArray());
 
         namedParameterJdbcTemplate.batchUpdate("INSERT INTO INGREDIENT (name,qty,measure,id_recipe) " +
-                "values (:name,:qty,:measure," + idRecipe + ")", batchParams);
+                "values (:name,:qty,:measure," + keyHolder.getKey().intValue() + ")", batchParams);
     }
 
     /**

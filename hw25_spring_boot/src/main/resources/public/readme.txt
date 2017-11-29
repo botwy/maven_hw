@@ -1,0 +1,1 @@
+static file in folder "public"
