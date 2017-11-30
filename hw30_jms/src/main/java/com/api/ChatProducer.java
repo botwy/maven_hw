@@ -27,10 +27,11 @@ public class ChatProducer {
         this.session = session;
     }
 
-    public void init(Session ss, Topic tp) throws JMSException {
+    public ChatProducer init(Session ss, Topic tp) throws JMSException {
         this.session=ss;
         this.topic=tp;
         messageProducer = session.createProducer(topic);
+        return this;
     }
 
 

@@ -1,7 +1,7 @@
 package com.api;
 
 import javax.jms.*;
-
+@Deprecated
 public class MsgListener {
 
  //   private static final Object LOCK = new Object();

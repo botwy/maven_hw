@@ -10,6 +10,7 @@
       <set>
         <option value="$PROJECT_DIR$/hw10_stream/pom.xml" />
         <option value="$PROJECT_DIR$/hw25_orm/pom.xml" />
+        <option value="$PROJECT_DIR$/hw25_spring_boot/pom.xml" />
         <option value="$PROJECT_DIR$/hw9_cacheproxy/pom.xml" />
       </set>
     </option>
