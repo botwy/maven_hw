@@ -11,6 +11,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 
+@Deprecated
 public class ChatProducer {
     private Session session;
     private MessageProducer messageProducer;

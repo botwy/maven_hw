@@ -2,6 +2,7 @@ package com.api;
 
 import javax.jms.*;
 
+@Deprecated
 public class ChatConsumer {
 
     private Session session;
