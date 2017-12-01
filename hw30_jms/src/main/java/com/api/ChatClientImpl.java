@@ -13,9 +13,11 @@ import java.util.Scanner;
 
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ChatClientImpl implements MessageListener,ChatClient {
+public class ChatClientImpl implements MessageListener, ChatClient {
     private final ConnectionFactory connectionFactory;
     private final Topic topic;
+
+    private String userName;
 
     private Session pubSession;
     private Session subSession;
@@ -24,7 +26,7 @@ public class ChatClientImpl implements MessageListener,ChatClient {
     private Connection connection;
 
     @Autowired
-    public ChatClientImpl(ConnectionFactory connectionFactory, Topic topic){
+    public ChatClientImpl(ConnectionFactory connectionFactory, Topic topic) {
         this.connectionFactory = connectionFactory;
         this.topic = topic;
 
@@ -39,15 +41,32 @@ public class ChatClientImpl implements MessageListener,ChatClient {
 
             // Create a JMS publisher and subscriber
             producer = pubSession.createProducer(topic);
-            consumer = subSession.createConsumer(topic);
+            consumer = subSession.createConsumer(topic, "mode='toback' AND user='" + getUserName() + "'");
 
             // Set a JMS message listener
-               consumer.setMessageListener(this);
+            consumer.setMessageListener(this);
 
             // Start the JMS connection; allows messages to be delivered
             // Если мы читаем сообщения, то не забываем делать start у соединения
             connection.start();
 
+
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageConsumer consum = session.createConsumer(topic, "mode='tofront'");
+
+            consum.setMessageListener(new MessageListener() {
+                @Override
+                public void onMessage(Message message) {
+                    TextMessage textMessage = (TextMessage) message;
+                    String text = null;
+                    try {
+                        text = textMessage.getText();
+                    } catch (JMSException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(text);
+                }
+            });
 
         } catch (JMSException e) {
             e.printStackTrace();
@@ -61,14 +80,22 @@ public class ChatClientImpl implements MessageListener,ChatClient {
 
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
 
     /* Receive message from topic subscriber */
     @Override
     public void onMessage(Message message) {
+
         try {
             TextMessage textMessage = (TextMessage) message;
             String text = textMessage.getText();
-            System.out.println(text);
+            writeMessage(text);
         } catch (JMSException jmse) {
             jmse.printStackTrace();
         }
@@ -78,7 +105,8 @@ public class ChatClientImpl implements MessageListener,ChatClient {
     @Override
     public void writeMessage(String text) throws JMSException {
         TextMessage message = pubSession.createTextMessage();
-        message.setText("------------------------Message received: " + " : " + text);
+        message.setText("------------------------Message received from " + userName + " : " + text);
+        message.setStringProperty("mode", "tofront");
         producer.send(message);
     }
 

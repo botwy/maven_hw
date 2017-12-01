@@ -1,68 +1,72 @@
 package com.api;
 
+import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.jms.*;
-import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
 
 public class ChatServer {
 
-    private static ConcurrentMap<String, ChatClientImpl> mapChatClient = new ConcurrentHashMap<>();
-    private static ConfigurableApplicationContext context;
+    private static ConcurrentMap<String, ChatClient> mapChatClient = new ConcurrentHashMap<>();
+    private static final Object LOCK = new Object();
 
+    public static void main (String...args) {
+        final ConfigurableApplicationContext context = SpringApplication.run(ChatConfig.class, args);
 
-    public static void main(String... args) {
-        context = SpringApplication.run(ChatConfig.class, args);
-
-        System.out.println("введите имя пользователя: ");
-        String userName;
-        //     try( BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));) {
-        //       if (( userName = bufferedReader.readLine())!=null){
-        Scanner scanner = new Scanner(System.in);
-        userName = scanner.nextLine();
+        ConnectionFactory connectionFactory = context.getBean(ConnectionFactory.class);
+        Connection connection = null;
         try {
-            login(userName);
-            while (true) {
-                TimeUnit.MILLISECONDS.sleep(500);
-                System.out.println("введите сообщение и enter чтобы отправить: ");
-                String msg = scanner.nextLine();
-                if (msg.equalsIgnoreCase("exit")) {
-              //      chatClient.close(); // close the connection
-                    System.exit(0);// exit from program
-                } else {
-                    send(msg);
-                }
+            connection = connectionFactory.createConnection();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageConsumer messageConsumer = session.createConsumer(context.getBean(Topic.class, "mode='toback' AND login'true'"));
 
-            }
+            messageConsumer.setMessageListener(new MessageListener() {
+                @Override
+                public void onMessage(Message message) {
+                    TextMessage textMessage = (TextMessage) message;
+                    String text = null;
+                    try {
+                       String userName  = textMessage.getText();
+                        if (!mapChatClient.containsKey(userName)) {
+                            ChatClientImpl chatClient = context.getBean(ChatClientImpl.class);
+                            chatClient.setUserName(userName);
+                            mapChatClient.put(userName, chatClient);
+                            text = " к чату присоединился " + userName;
+                            send(text, context);
+                        }
+                    } catch (JMSException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+            connection.start();
         } catch (JMSException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-        //      }
-        //  } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+
+        synchronized (LOCK) {
+            try {
+                LOCK.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
-    public static void login(String userName) throws JMSException {
-        if (!mapChatClient.containsKey(userName))
-            mapChatClient.put(userName, context.getBean(ChatClientImpl.class));
-
-        send("Подключился " + userName);
-    }
-
-    public static void send(String msg) throws JMSException {
+    public static void send(String msg, ApplicationContext context) throws JMSException {
         ConnectionFactory connectionFactory = context.getBean(ConnectionFactory.class);
         Connection connection = connectionFactory.createConnection();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         MessageProducer messageProducer = session.createProducer(context.getBean(Topic.class));
         TextMessage textMessage = session.createTextMessage("                       Message received" + " : " + msg);
+        textMessage.setStringProperty("mode","tofront");
         messageProducer.send(textMessage);
         connection.close();
     }
