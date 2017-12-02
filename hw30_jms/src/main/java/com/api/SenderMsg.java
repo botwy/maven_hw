@@ -60,7 +60,7 @@ public class SenderMsg {
         MessageProducer messageProducer = session.createProducer(context.getBean(Topic.class));
         TextMessage textMessage = session.createTextMessage(msg);
         textMessage.setStringProperty("mode","toback");
-        textMessage.setStringProperty("login","true");
+        textMessage.setBooleanProperty("login",false);
         messageProducer.send(textMessage);
         connection.close();
     }

@@ -22,7 +22,7 @@ public class ChatServer {
         try {
             connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageConsumer messageConsumer = session.createConsumer(context.getBean(Topic.class, "mode='toback' AND login'true'"));
+            MessageConsumer messageConsumer = session.createConsumer(context.getBean(Topic.class, "mode='toback' AND login=true"));
 
             messageConsumer.setMessageListener(new MessageListener() {
                 @Override
