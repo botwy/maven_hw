@@ -22,7 +22,8 @@ public class ChatServer {
         try {
             connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageConsumer messageConsumer = session.createConsumer(context.getBean(Topic.class, "mode='toback' AND login=true"));
+            Topic topic = context.getBean(Topic.class);
+            MessageConsumer messageConsumer = session.createConsumer(topic, "mode='toback' AND login=true");
 
             messageConsumer.setMessageListener(new MessageListener() {
                 @Override
@@ -33,7 +34,7 @@ public class ChatServer {
                        String userName  = textMessage.getText();
                         if (!mapChatClient.containsKey(userName)) {
                             ChatClientImpl chatClient = context.getBean(ChatClientImpl.class);
-                            chatClient.setUserName(userName);
+                            chatClient.initClient(userName);
                             mapChatClient.put(userName, chatClient);
                             text = " к чату присоединился " + userName;
                             send(text, context);

@@ -14,7 +14,6 @@
         <module name="hw16_JIT_GC" />
         <module name="hw17_goodcode" />
         <module name="hw24_spring_jdbc" />
-        <module name="hw25_orm" />
         <module name="hw25_spring_data" />
         <module name="hw30_jms" />
         <module name="hw9_cacheproxy" />

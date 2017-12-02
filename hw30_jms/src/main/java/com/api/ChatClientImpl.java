@@ -30,6 +30,10 @@ public class ChatClientImpl implements MessageListener, ChatClient {
         this.connectionFactory = connectionFactory;
         this.topic = topic;
 
+    }
+
+    public void initClient(String userName) {
+        setUserName(userName);
         // Create a JMS connection
 
         try {
@@ -51,23 +55,6 @@ public class ChatClientImpl implements MessageListener, ChatClient {
             connection.start();
 
 
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageConsumer consum = session.createConsumer(topic, "mode='tofront'");
-
-            consum.setMessageListener(new MessageListener() {
-                @Override
-                public void onMessage(Message message) {
-                    TextMessage textMessage = (TextMessage) message;
-                    String text = null;
-                    try {
-                        text = textMessage.getText();
-                    } catch (JMSException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(text);
-                }
-            });
-
         } catch (JMSException e) {
             e.printStackTrace();
             try {
@@ -76,8 +63,6 @@ public class ChatClientImpl implements MessageListener, ChatClient {
                 e1.printStackTrace();
             }
         }
-
-
     }
 
     public void setUserName(String userName) {
@@ -105,7 +90,7 @@ public class ChatClientImpl implements MessageListener, ChatClient {
     @Override
     public void writeMessage(String text) throws JMSException {
         TextMessage message = pubSession.createTextMessage();
-        message.setText("------------------------Message received from " + userName + " : " + text);
+        message.setText("                          Message received from " + userName + " : " + text);
         message.setStringProperty("mode", "tofront");
         producer.send(message);
     }
