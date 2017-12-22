@@ -1,3 +1,6 @@
+import com.hw11_12_thread.FixedIThreadPool;
+import com.hw11_12_thread.IThreadPool;
+import com.hw11_12_thread.ScalableIThreadPool;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -6,11 +9,11 @@ public class ThreadPoolTest {
 
     @Test
     public void fixedThreadPool(){
-        ThreadPool threadPool = new FixedThreadPool(2);
-        threadPool.start();
+        IThreadPool IThreadPool = new FixedIThreadPool(2);
+        IThreadPool.start();
 
         for (int i=0;i<5;i++) {
-            threadPool.execute(new Runnable() {
+            IThreadPool.execute(new Runnable() {
                 @Override
                 public void run() {
                     System.out.println(Thread.currentThread());
@@ -22,7 +25,7 @@ public class ThreadPoolTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (Runnable runnable:((FixedThreadPool)threadPool).getQue()
+        for (Runnable runnable:((FixedIThreadPool) IThreadPool).getQue()
              ) {
             System.out.println(runnable);
         }
@@ -30,11 +33,11 @@ public class ThreadPoolTest {
 
     @Test
     public void scalableThreadPool(){
-        ThreadPool threadPool = new ScalableThreadPool(2,5);
-        threadPool.start();
+        IThreadPool IThreadPool = new ScalableIThreadPool(2,5);
+        IThreadPool.start();
 
         for (int i=0;i<5;i++) {
-            threadPool.execute(new Runnable() {
+            IThreadPool.execute(new Runnable() {
                 @Override
                 public void run() {
                     System.out.println(Thread.currentThread());
@@ -46,13 +49,13 @@ public class ThreadPoolTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (Runnable runnable:((ScalableThreadPool)threadPool).getQue()
+        for (Runnable runnable:((ScalableIThreadPool) IThreadPool).getQue()
                 ) {
             System.out.println(runnable);
         }
-        System.out.println(((ScalableThreadPool) threadPool).getThreads().size());
+        System.out.println(((ScalableIThreadPool) IThreadPool).getThreads().size());
 
-        for (ScalableThreadPool.MyThread thread:((ScalableThreadPool) threadPool).all_threads
+        for (Thread thread:((ScalableIThreadPool) IThreadPool).getThreads()
              ) {
             System.out.println(thread+" "+thread.getState());
         }

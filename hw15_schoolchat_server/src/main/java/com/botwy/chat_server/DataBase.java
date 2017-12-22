@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * здесь хранятся данные чата: логины, ссылки на сокеты, сообщения, ссылки на ObjectOutputStream
+ */
 public class DataBase {
     private final HashMap<String,Socket> user_socket;
     private final HashMap<String,ObjectOutputStream> user_oos;
@@ -21,11 +24,22 @@ public class DataBase {
         receiver_messages = new HashMap<String, List<Message>>();
     }
 
-    public void addUser(String user_name, Socket socket, ObjectOutputStream oos) throws IOException {
+    /**
+     * Добавляем пользователя в объект DataBase
+     * @param user_name
+     * @param socket
+     * @param oos ObjectOutputStream
+     */
+    public void addUser(String user_name, Socket socket, ObjectOutputStream oos) {
         user_oos.put(user_name,oos);
         user_socket.put(user_name,socket);
     }
 
+    /**
+     * Добавляем сообщение в список, соответствующий логину получателя
+     * @param receiver
+     * @param msg
+     */
     public void addMessageToList(String receiver, Message msg) {
         if (!receiver_messages.containsKey(receiver))
             receiver_messages.put(receiver,new ArrayList<Message>());
@@ -40,6 +54,13 @@ public class DataBase {
     public HashMap<String, ObjectOutputStream> getUser_oos() {
         return user_oos;
     }
+
+
+    /**
+     *
+     * @param receiver
+     * @return список сообщений, соответствующий логину получателя
+     */
 
     public List<Message> getMessagesList(String receiver) {
         if (!receiver_messages.containsKey(receiver))

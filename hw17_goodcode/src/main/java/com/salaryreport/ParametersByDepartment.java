@@ -3,6 +3,9 @@ package com.salaryreport;
 import java.sql.Connection;
 import java.time.LocalDate;
 
+/**
+ * класс для объединения параметров, используемых в различных отчетах по конкретному отделу (департаменту)
+ */
 public class ParametersByDepartment {
     private final Connection connection;
     private final String departmentId;
@@ -17,6 +20,10 @@ public class ParametersByDepartment {
         this.departmentId = departmentId;
     }
 
+    /**
+     *
+     * @return ссылку на соединение с базой данных
+     */
     public Connection getConnection() {
         return connection;
     }
@@ -33,13 +40,22 @@ public class ParametersByDepartment {
         return dateTo;
     }
 
+    /**
+     *
+     * @return заголовок отчета
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return тема e-mail письма
+     */
     public String getSubject() {
         return subject;
     }
+
 
     public void setTitle(String title) {
         this.title = title;

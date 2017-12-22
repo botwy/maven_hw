@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:./database/test_spring_hibernate" />
+        <property name="username" value="su" />
+        <property name="password">
+            <value></value>
+        </property>
+    </bean>
+
+    <!-- Hibernate 3 XML SessionFactory Bean definition-->
+    <!-- 	<bean id="hibernate3SessionFactory"
+            class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+            <property name="dataSource" ref="dataSource" />
+            <property name="mappingResources">
+                <list>
+                    <value>person.hbm.xml</value>
+                </list>
+            </property>
+            <property name="hibernateProperties">
+                <value>
+                    hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                </value>
+            </property>
+        </bean> -->
+
+    <!-- Hibernate 3 Annotation SessionFactory Bean definition-->
+    <bean id="hibernate3AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.hw25.spring_hibernate.Person</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.default_schema">PUBLIC</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="personDAO" class="com.hw25.spring_hibernate.PersonDAOImpl">
+        <property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+    </bean>
+</beans>
