@@ -1,5 +1,8 @@
 # .iml files
 *.iml
+/*.iml
+sgu2059/sgu2059.iml
+
 
 ## File-based project format:
 *.ipr
@@ -8,7 +11,7 @@
 
 #all files in .idea directory
 .idea/
-.idea/compiler.xml
+
 
 # IntelliJ
 /out/

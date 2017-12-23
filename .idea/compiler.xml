@@ -41,7 +41,7 @@
       <module name="SchoolChatAPI" target="1.7" />
       <module name="sgu2056" target="1.7" />
       <module name="sgu2057" target="1.7" />
-      <module name="sgu2059" target="1.7" />
+      <module name="sgu2059" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
