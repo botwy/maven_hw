@@ -8,6 +8,7 @@
 
 #all files in .idea directory
 .idea/
+.idea/compiler.xml
 
 # IntelliJ
 /out/
@@ -23,3 +24,7 @@
 ignite.properties
 
 *.log
+
+cache_files/
+database/
+db_recipe.mv.db

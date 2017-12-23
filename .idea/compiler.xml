@@ -35,7 +35,7 @@
       <module name="hw24_spring_jdbc" target="1.7" />
       <module name="hw25_spring_boot" target="1.8" />
       <module name="hw25_spring_data" target="1.7" />
-      <module name="hw30_jms" target="1.8" />
+      <module name="hw30_jms" target="1.7" />
       <module name="hw9_cacheproxy" target="1.7" />
       <module name="maven_hw" target="1.7" />
       <module name="SchoolChatAPI" target="1.7" />
