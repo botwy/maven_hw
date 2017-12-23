@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/horosho", method = RequestMethod.GET)
     public ResponseEntity<String> exampleResponse() {
         return new ResponseEntity<String>("Horosho", HttpStatus.OK);
     }
