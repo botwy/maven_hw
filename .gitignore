@@ -10,8 +10,8 @@ sgu2059/sgu2059.iml
 *.ids
 
 #all files in .idea directory
-#.idea/
-#.idea/compiler.xml
+.idea/
+.idea/compiler.xml
 
 # IntelliJ
 /out/
